@@ -1,0 +1,152 @@
+<div class="product-option-container-la">
+  {% if product.metafields.custom.product_list.value and variant_picker_block %}
+    <div class="color-option-in-metafields-la" data-product-handle="{{ product_handle.handle }}">
+      <p>Color:</p>
+      {% for option in product.options_with_values %}
+        {% if option.name == 'Color' %}
+          <div class="color-options-la">
+            {% for value in option.values %}
+              <span
+                class="color-option-la"
+                data-color="{{ value }}"
+                title="{{ value }}"
+              >
+                {{ value }}
+              </span>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  
+  {% if product.metafields.custom.product_list.value  != blank %}
+    <div class="container-product-options-la">
+      {% for product_handle in product.metafields.custom.product_list.value %}
+        {% if product_handle %} 
+          <div class="image-option-container-la">
+            <a href="{{ product_handle.url }}" class="product-option-url-la">
+              <img
+                src="{{ product_handle.featured_image | image_url: width: 800 }}"
+                width="400"
+                height="400"
+                alt="{{ product_handle.title }}"
+                class="product-option-images-la {% if product.handle == product_handle.handle %}active-option-meta-la{% endif %}"
+                loading="lazy"
+              >
+            </a>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+  {% if popup_block %}
+    <modal-opener
+      class="product-popup-modal__opener no-js-hidden quick-add-hidden"
+      data-modal="#PopupModal-{{ popup_block.id }}"
+      {{ popup_block.shopify_attributes }}
+    >
+      {% assign size_chart = null %}
+      {% for collection in product.collections %}
+        {% if collection.metafields.custom.size_chart != blank %}
+          {% assign size_chart = collection.metafields.custom.size_chart %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+      {% if size_chart != blank %}
+        <button
+          id="ProductPopup-{{ popup_block.id }}"
+          class="product-popup-modal__button link "
+          type="button"
+          aria-haspopup="dialog"
+        >
+          <b class="size_guide-la"> {{ popup_block.settings.text | default: popup_block.settings.page.title }} </b>
+        </button>
+      {% endif %}
+    </modal-opener>
+    <a href="{{ popup_block.settings.page.url }}" class="product-popup-modal__button link no-js">
+      {{- popup_block.settings.text -}}
+    </a>
+    {% assign popups = section.blocks | where: 'type', 'popup' %}
+    {%- for popup_block in popups -%}
+      <modal-dialog
+        id="PopupModal-{{ popup_block.id }}"
+        class="product-popup-modal"
+        {{ popup_block.shopify_attributes }}
+      >
+        <div
+          role="dialog"
+          aria-label="{{ popup_block.settings.text }}"
+          aria-modal="true"
+          class="product-popup-modal__content"
+          tabindex="-1"
+        >
+          <button
+            id="ModalClose-{{ popup_block.id }}"
+            type="button"
+            class="product-popup-modal__toggle"
+            aria-label="{{ 'accessibility.close' | t }}"
+          >
+            {% render 'icon-close' %}
+          </button>
+          <div class="product-popup-modal__content-info">
+            {% assign size_chart = null %}
+            {% for collection in product.collections %}
+              {% if collection.metafields.custom.size_chart != blank %}
+                {% assign size_chart = collection.metafields.custom.size_chart %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+            {%- capture sizes -%}
+(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | times: 0.65 | divided_by: 1 | round }}px, (min-width: 990px) calc({{ 0.65 | times: 100 | divided_by: 1 }}vw - 10rem), (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw / 1 - 4rem)
+{%- endcapture -%}
+            {{
+              size_chart.value
+              | image_url: width: 1946
+              | image_tag:
+                loading: 'lazy',
+                sizes: sizes,
+                widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
+            }}
+          </div>
+        </div>
+      </modal-dialog>
+    {%- endfor -%}
+  {% endif %}
+  {% if variant_picker_block %}
+    <div class="size-options-la">
+      {% for option in product.options_with_values %}
+        {% if option.name == 'Size' %}
+          <div class="dropdown-container-la">
+            <div class="dropdown-header-la">
+              <span class="dropdown-selected-la"> Select Size </span>
+              <span class="dropdown-arrow-la">{% render 'icon-arrow-selcted' %}</span>
+            </div>
+            <div class="dropdown-menu-la">
+              {% for value in option.values %}
+                {% if value.available %}
+                    <div class="dropdown-item-la available-value-la"
+                        data-value="{{ value }}" id="{{ value.variant.id }}">
+                        {{ value }}
+                    </div>
+                {% endif %}
+              {% endfor %}
+              {% assign is_any_value_available = false %}
+              {% for value in option.values %}
+                  {% unless value.available %}
+                      {% assign is_any_value_available = true %}
+                  {% endunless %}
+              {% endfor %}
+
+              {% if is_any_value_available %}
+                 <button id="open-modal-btn" class="open-modal-btn">Size missing?</button>
+              {% endif %}
+              
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>

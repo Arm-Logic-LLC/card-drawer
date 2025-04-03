@@ -1,0 +1,401 @@
+{{ 'product-la.css' | asset_url | stylesheet_tag }}
+{{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer="defer"></script>
+<script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
+{{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'main-product-la.js' |  asset_url }}" defer="defer"></script>
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  @media screen and (max-width: 990px) {
+  .section-{{ section.id }}-padding {
+  padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+  padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  }
+</style>
+{%- assign variant_picker_block = null -%}
+{%- assign popup_block = null -%}
+<section class="product-la  section-{{ section.id }}-padding" data-product-id="{{ product.first_available_variant.id }}">
+  <product-info
+    id="ProductInfo-{{ section.id }}"
+    data-section="{{ section.id }}"
+    data-url="{{ product.url }}"
+    class="product__info-container-la{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}"
+  >
+    <div class="product-wrapper-la ">
+      <div class="right-section-image-la">
+        {% render 'product-thumbnail-la' %}
+      </div>
+    <div class="left-section-info-la">
+      <div class="left-section-wrapper-info-la">
+          <div class="header-product-la">
+            {%- for block in section.blocks -%}
+            {% case block.type %}
+              {% when 'title' %}
+                <h1 class="title-product-la">{{ product.title }}</h1>
+              {% when 'share' %}
+                <div class="share-container-la">
+                  <div class="social-icons-share-la">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ shop.url }}{{ product.url }}" target="_blank" class="social-icon-share-links-la facebook">{% render 'icon-facebook' %}</a>
+                    <a href="https://twitter.com/intent/tweet?url={{ shop.url }}{{ product.url }}" target="_blank" class="social-icon-share-links-la twitter">{% render 'icon-twitter' %}</a>
+                    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ shop.url }}{{ product.url }}" target="_blank" class="social-icon-share-links-la linkedin">{% render 'icon-linkedin' %}</a>
+                    <a href="https://pinterest.com/pin/create/button/?url={{ shop.url }}{{ product.url }}" target="_blank" class="social-icon-share-links-la pinterest">{% render 'icon-pinterest' %}</a>
+                    <a href="mailto:?subject=Check%20this%20out&body={{ shop.url }}{{ product.url }}" class="social-icon-share-links-la email">{% render 'icon-email' %}</a>
+                  </div>
+                <span class="share-icon-la"> {% render 'share-icons' %}</span>
+                </div>
+            {% endcase %}
+          {% endfor %}
+        </div>
+        <div class="product-price-container-la">
+          {%- for block in section.blocks -%}
+            {% case block.type %}
+              {% when 'price' %}
+                <p class="product-prce-la">
+                  {{ product.price | money }}
+                </p>
+            {% endcase %}
+          {% endfor %}
+        </div>
+        <div class="product-list-la">
+          {%- for block in section.blocks -%}
+            {% case block.type %}
+              {%- when 'variant_picker' -%}
+                {%- assign variant_picker_block = block -%}
+              {%- when 'popup' -%}
+                {%- assign popup_block = block -%}
+            {% endcase %}
+          {% endfor %}
+          {% render 'product-option-la',
+            product: product,
+            variant_picker_block: variant_picker_block,
+            popup_block: popup_block
+          %}
+         {% for option in product.options_with_values %}
+            {% if option.name == "Size" %}
+              <button id="size-popup-btn">
+                <span class="dropdown-selected-la"> Select Size </span>
+                <span class="dropdown-arrow-la">{% render 'icon-arrow-selcted' %}</span>
+              </button>
+            {% endif %}
+         {% endfor %}
+        </div>
+        <div class="product-detalis-info-la">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'buy_buttons' %}
+                {% render 'buy-buttons-la',
+                  block: block,
+                  product: product,
+                  section_id: section.id,
+                  show_pickup_availability: true
+                %}
+              {% when 'data' %}
+                <div class="delivery-estimated-la">
+                  <span class="title-estimated-la">Estimated Delivery:</span
+                  ><span class="estimated-date-la">
+                    {{- 'now' | date: '%s' | plus: 777600 | date: '%b %d' }} -  
+                    {{ 'now' | date: '%s' | plus: 950400 | date: '%b %d' -}}
+                  </span>
+                </div>
+              {% when 'detalis' %}
+                {% if product.description != blank %}
+
+                <div class="collapsible-container-la">
+                  <div class="collapsible-part-la">
+                    <h2 class="title-collapsible-la">{{ block.settings.title_detalis | default: block.settings.page.title }}</h2>
+                    <span class="arrow-selected-collapsible-la"> {% render 'icon-arrow-selcted' %}</span>
+                  </div>
+                  <div class="product-detalis-sku-wrapper-la collapsible-view-la">
+                    <div class="collapsible-view-header-la">   
+                        <h2 class="collapsible-title-la">{{ block.settings.title_product_viewed_la }}</h2>
+                        <span class="x-icon-collapsible"> {% render 'icon_x' %}</span>
+                      </div>
+                    <div class="collapsible-view-wrapper-la">
+                      
+                      <p class="product-sku-la">
+                        Product ID&nbsp;
+                        {{- product.selected_or_first_available_variant.sku -}}
+                      </p>
+                      <p class="tabel-description-la">{{ product.description }}</p>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+
+              {% when 'description' %}
+                {% if product.description != blank %}
+                  <div class="product-description-text-container-la">
+                  <div class="product-description-text-wrapper-la">
+                    <p class="text-description-la">
+                      {{ product.description }}
+                    </p>
+                  </div>
+                  <button id="toggle-button-la" class="text-description-more-la">view more</button>
+                </div>
+                {% endif %}
+                
+              {%- when 'collapsible_tab' -%}
+                <div class="collapsible-container-la">
+                  <div class="collapsible-part-la">
+                    <h2 class="title-collapsible-la">
+                      {{ block.settings.heading | default: block.settings.page.title }}
+                    </h2>
+                    <span class="arrow-selected-collapsible-la"> {% render 'icon-arrow-selcted' %}</span>
+                  </div>
+                  <div class="collapsible-view-la">
+                    <div class="collapsible-view-header-la">
+                        <h2 class="collapsible-title-la">{{ block.settings.title_collapsible }}</h2>
+                        <span class="x-icon-collapsible"> {% render 'icon_x' %}</span>
+                      </div>
+                    <div class="collapsible-view-wrapper-la">
+                      {{ block.settings.content }}
+                      <a class="collapsible-url-la" href="{{ block.settings.page }}">
+                        {{- block.settings['text-collapsible'] -}}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              {% when 'slider_also_like' %}
+                {% if product.metafields.custom.slider_product_list != blank
+                  or product.metafields.custom.slider_collection.value != blank
+                -%}
+                  <div class="slider-also-like-la">
+                    <div class="title-sliders-la">
+                      <p class="style-with-slider-la">{{ block.settings.one_slider_title }}</p>
+                      <p class="style-also-slider-la">{{ block.settings.two_slider_title }}</p>
+                    </div>
+                    {% if product.metafields.custom.slider_product_list != blank %}
+                      <div class="swiper swiper-slider-with-container-la">
+                        <div class="swiper-wrapper swiper-slider-also-wrapper-la">
+                          {% for sliderProduct in product.metafields.custom.slider_product_list.value %}
+                            <div class="swiper-slide swiper-slider-also-item-product-list-la">
+                              <a href="{{ sliderProduct.url }}" class="url-product-also-product-item-la" data-set="remove">
+                                <img
+                                  src="{{ sliderProduct.featured_image | image_url: width: 500 }}"
+                                  width="300"
+                                  height="200"
+                                  loading="lazy"
+                                  alt="{{ sliderProduct.alt }}"
+                                  class="image-also-like-slider-la"
+                                >
+                                <p class="also-like-slider-product-title-la">{{ sliderProduct.title }}</p>
+                                <p class="slider-also-like-product-price-la">{{ sliderProduct.price | money }}</p>
+                              </a>
+                            </div>
+                          {% endfor %}
+                        </div>
+                        <div class="swiper-button-next swiper-button-next-also-with-la"></div>
+                        <div class="swiper-button-prev swiper-button-prev-also-with-la"></div>
+                      </div>
+                    {% endif %}
+                    {% if product.metafields.custom.slider_collection.value != blank %}
+                      {% assign metafields_collection = product.metafields.custom.slider_collection.value %}
+                      <div class="swiper swiper-slider-also-container-la">
+                        <div class="swiper-wrapper swiper-slider-also-wrapper-la">
+                          {% for sliderCollectionPoduct in metafields_collection.products %}
+                            <div class="swiper-slide swiper-slider-also-item-product-list-la">
+                              <a href="{{ sliderCollectionPoduct.url }}" class="url-product-also-product-item-la" data-set="remove">
+                                <img
+                                  src="{{ sliderCollectionPoduct.featured_image | image_url: width: 500 }}"
+                                  width="300"
+                                  height="200"
+                                  alt="{{ sliderCollectionPoduct.alt }}"
+                                  class="image-also-like-slider-la"
+                                >
+                                <p class="also-like-slider-product-title-la">{{ sliderCollectionPoduct.title }}</p>
+                                <p class="slider-also-like-product-price-la">
+                                  {{ sliderCollectionPoduct.price | money }}
+                                </p>
+                              </a>
+                            </div>
+                          {% endfor %}
+                        </div>
+                        <div class="swiper-button-next swiper-button-next-also-with-la"></div>
+                        <div class="swiper-button-prev swiper-button-prev-also-with-la"></div>
+                      </div>
+                    {% endif %}
+                  </div>
+                {% endif %}
+            {% endcase %}
+          {% endfor %}
+        </div>
+        </div>
+      </div>
+    </div>
+  </product-info>
+ 
+  {% render 'custom-variant-popup', 
+    product: product,
+    variant_picker_block: variant_picker_block %}
+  {% render 'product-modal-contact-form' %}
+</section>
+
+{% render 'product-zoom-slider' %}
+
+{% schema %}
+{
+  "name": "Main product",
+  "tag": "section",
+  "class": "section",
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "title",
+      "name": "Title",
+      "limit": 1
+    },
+    {
+      "type": "price",
+      "name": "Price",
+      "limit": 1
+    },
+    {
+      "type": "detalis",
+      "name": "Product detalis",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title_detalis",
+          "label": "Title product detalis"
+        },
+        {
+          "type": "text",
+          "id": "title_product_viewed_la",
+          "label": "Title product viewed"
+        }
+      ]
+    },
+    {
+      "type": "popup",
+      "name": "Pop up",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "default": "Pop-up link text",
+          "label": "Link label"
+        },
+        {
+          "id": "page",
+          "type": "page",
+          "label": "Page"
+        }
+      ]
+    },
+    {
+      "type": "variant_picker",
+      "name": "t:sections.main-product.blocks.variant_picker.name",
+      "limit": 1
+    },
+    {
+      "type": "buy_buttons",
+      "name": "Buy buttons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_dynamic_checkout",
+          "default": true,
+          "label": "t:sections.main-product.blocks.buy_buttons.settings.show_dynamic_checkout.label",
+          "info": "t:sections.main-product.blocks.buy_buttons.settings.show_dynamic_checkout.info"
+        }
+      ]
+    },
+    {
+      "type": "description",
+      "name": "t:sections.main-product.blocks.description.name",
+      "limit": 1
+    },
+    {
+      "type": "share",
+      "name": "t:sections.main-product.blocks.share.name",
+      "limit": 1
+    },
+    {
+      "type": "collapsible_tab",
+      "name": "t:sections.main-product.blocks.collapsible_tab.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Collapsible row",
+          "info": "Include a heading that explains the content.",
+          "label": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "title_collapsible",
+          "label": "Title collapsible"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Row content"
+        },
+        {
+          "type": "text",
+          "id": "text-collapsible",
+          "label": "Title url"
+        },
+        {
+          "type": "url",
+          "id": "page",
+          "label": "Row content from page"
+        }
+      ]
+    },
+    {
+      "type": "data",
+      "name": "Delivery Data",
+      "limit": 1
+    },
+    {
+      "type": "slider_also_like",
+      "name": "Slider also like",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "one_slider_title",
+          "label": "One slider title"
+        },
+        {
+          "type": "text",
+          "id": "two_slider_title",
+          "label": "Two slider title"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ]
+}
+{% endschema %}

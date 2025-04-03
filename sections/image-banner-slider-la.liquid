@@ -1,0 +1,152 @@
+{{ 'image-banner-slaid-la.css' | asset_url | stylesheet_tag }}
+
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  @media screen and (max-width: 990px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+  }
+</style>
+
+<section class="image-banner-slider-la section-{{ section.id }}-padding">
+  <div class="swiper image-banner-slider-autoplay-swiper-la">
+    <div class=" swiper-wrapper image-banner-slider-autoplay-wrapper-swiper-la">
+      {% for block in section.blocks %}
+        <div
+          class="swiper-slide my-slider-opacity"
+        >
+          {% if block.settings.image_picker_block != blank %}
+            <img
+              src="{{ block.settings.image_picker_block |  image_url: width:1500}}"
+              height="1000"
+              width="1400"
+              alt="{{ block.settings.image_picker_block.alt }}"
+              class="image_banner-slider-image-desktop "
+            >
+            <img
+              src="{{ block.settings.image_picker_block_mobile |  image_url: width:700}}"
+              height="800"
+              width="600"
+              alt="{{ block.settings.image_picker_block_mobile.alt }}"
+              class="image_banner-slider-image-mobile"
+            >
+            <div class="slider-inforamation-la">
+              <div>
+                <h1 style="color: {{ block.settings.collection_impact_color }};" class="slider-title-in-collection">
+                  {{ block.settings['slider_impact-la'] }}
+                </h1>
+                {% if block.settings['text_url-la'] != blank and block.settings.slder_info_impact_url != blank %}
+                  <a
+                    href="{{ block.settings.slder_info_impact_url }}"
+                    class="url_slider_discover-la"
+                    style="background-color: {{ block.settings.maximum_impact_link_bgcolor }}; color: {{ block.settings.maximum_impact_link_color }}"
+                  >
+                    {{- block.settings['text_url-la'] -}}
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          {% else %}
+            {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="swiper-pagination_1 swiper-pagination-image-banner-la "></div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Image banner slider V4",
+  "class": "Image Banner slider",
+  "limit": 1,
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Image slide show",
+      "type": "image_picker",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image_picker_block",
+          "label": "Iamge slide show"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_picker_block_mobile",
+          "label": "Iamge slide show mobile"
+        },
+        {
+          "type": "text",
+          "id": "slider_impact-la",
+          "label": "Collection Info"
+        },
+        {
+          "type": "url",
+          "id": "slder_info_impact_url",
+          "label": "Button url"
+        },
+        {
+          "type": "text",
+          "id": "text_url-la",
+          "label": "Text url"
+        },
+        {
+          "type": "color",
+          "id": "collection_impact_color",
+          "label": "Color collection info"
+        },
+        {
+          "type": "color",
+          "id": "maximum_impact_link_bgcolor",
+          "label": "Color link bgcolor"
+        },
+        {
+          "type": "color",
+          "id": "maximum_impact_link_color",
+          "label": "Color link text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image banner slider",
+      "blocks": [
+        {
+          "type": "image_picker",
+          "settings": {}
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

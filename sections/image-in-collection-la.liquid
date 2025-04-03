@@ -1,0 +1,90 @@
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  @media screen and (max-width: 990px) {
+  .section-{{ section.id }}-padding {
+  padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+  padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  }
+</style>
+<section class="collection_container-la section-{{ section.id }}-padding" >
+  <div class="collection_container-wrapper-la">
+    {% for block in section.blocks %}
+          <div class="collection_item-la">
+            <a href="{{ block.settings.url_collection_link }}" >
+              <img
+                src="{{ block.settings.collection-image-la |  image_url: width: 800 }}"
+                width="500"
+                height="700"
+                alt="{{ block.settings.collection-image-la.alt }}"
+              >
+              <a href="{{ block.settings.url_collection_link }}" class="collection_items-url-la">
+                {{ block.settings.text_url_collection }}
+              </a>
+            </a>
+          </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection shop V7",
+  "class": "section",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "collection-image-la",
+          "label": "Collection image"
+        },
+        {
+          "type": "url",
+          "id": "url_collection_link",
+          "label": "Url collection"
+        },
+        {
+          "type": "text",
+          "id": "text_url_collection",
+          "label": "Name collection link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+        "name": "Collection show"
+    }
+  ]
+}
+{% endschema %}

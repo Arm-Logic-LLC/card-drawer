@@ -1,0 +1,25 @@
+{
+  "parent": "header-group.json",
+  "context": {
+    "market": "kaza"
+  },
+  "sections": {
+    "header": {
+      "settings": {
+        "sticky_header_type": "on-scroll-up"
+      },
+      "blocks": {}
+    },
+    "announcement-bar": {
+      "settings": {},
+      "blocks": {
+        "announcement-bar-0": {
+          "settings": {
+            "text": "Contact us  +7-999-444-96-62",
+            "link": "https:\/\/wa.me\/+37455406456"
+          }
+        }
+      }
+    }
+  }
+}

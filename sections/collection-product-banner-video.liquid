@@ -1,0 +1,198 @@
+<section class="collection-vidio-and-product">
+  <div class="filter_collection-la">
+    <div class="filter_modal-la">
+      <div class="filter_form-sorting">
+        {% render 'filter_by_sorting-la' %}
+      </div>
+      {% render 'icon_filter-la' %}
+    </div>
+
+    <div class="icons_grid-la">
+      {%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture %}
+
+      {%- assign pageUrl = contentForQuerystring
+        | split: '"pageurl":"'
+        | last
+        | split: '"'
+        | first
+        | split: '.myshopify.com'
+        | last
+        | replace: '\/', '/'
+        | replace: '%20', ' '
+        | replace: '\u0026', '&'
+      -%}
+
+      {%- capture finalurl %}{{ pageUrl }}{% endcapture %}
+
+      {% assign finalurl = finalurl
+        | remove: '&_fd=0'
+        | remove: '&pb=1'
+        | remove: '&pb=0'
+        | remove: '&_fd=1'
+        | remove: '?_fd=0'
+        | remove: '?pb=1'
+        | remove: '?pb=0'
+        | remove: '?_fd=1'
+        | remove: '?view=grid'
+        | remove: '?view=grid-big'
+        | remove: '?view=grid-small'
+        | remove: '&view=grid'
+        | remove: '&view=grid-big'
+        | remove: '&view=grid-small'
+        | remove: '-small'
+        | remove: '-big'
+        | remove: 'armosshoes.ru'
+        | remove: 'www.armosshoes.ru'
+        | remove: 'www.armosshoes.com'
+        | remove: 'armosshoes.com'
+        | remove: 'armos.am'
+        | remove: 'www.armos.am'  
+      %}
+
+      {%- assign final_url_grid = finalurl %}
+      {%- assign final_url_grid_big = finalurl %}
+      {%- assign final_url_grid_small = finalurl %}
+
+      {% unless finalurl contains 'view' %}
+        {%- if finalurl contains '?' -%}
+          {%- assign final_url_grid = finalurl | append: '&view=grid' -%}
+          {%- assign final_url_grid_big = finalurl | append: '&view=grid-big' -%}
+          {%- assign final_url_grid_small = finalurl | append: '&view=grid-small' -%}
+        {%- else -%}
+          {%- assign final_url_grid = finalurl | append: '?view=grid' -%}
+          {%- assign final_url_grid_big = finalurl | append: '?view=grid-big' -%}
+          {%- assign final_url_grid_small = finalurl | append: '?view=grid-small' -%}
+        {%- endif %}
+      {% endunless %}
+      <a href="{{ final_url_grid }}" class="active_icon_one_url active_name_icons_all">
+        {% render 'icons-grid_one' %}
+      </a>
+      <a href="{{ final_url_grid_big }}" class="active_icon_two_url active_name_icons_all none_icon">
+        {% render 'icons_grid-two' %}
+      </a>
+      <a href="{{ final_url_grid_big }}" class="active_icon_two_url active_name_icons_all disactive">
+        {% render 'icon-grid-mobile-two' %}
+      </a>
+      <a href="{{ final_url_grid_small }}" class="active_icon_three_url active_name_icons_all none_icon">
+        {% render 'icons_grid-three' %}
+      </a>
+      <a href="{{ final_url_grid_small }}" class="active_icon_three_url active_name_icons_all disactive">
+        {% render 'icon-grid-three-mini' %}
+      </a>
+    </div>
+    <div class="sort_by_filter-la"></div>
+  </div>
+
+  <div class="continer_video_product">
+    {% assign product_counter = 0 %}
+    {% assign cycle_counter = 0 %}
+
+    <div class="products-grid collection-product-section-la">
+      {% for product in section.settings.product_block %}
+        {% assign cycle_counter = cycle_counter | plus: 1 %}
+
+        {% if cycle_counter == 1 %}
+          <div class="product-row_collection-la">
+            <div class="column-la first-column-la small-column-la">
+        {% endif %}
+
+        {% if cycle_counter <= 4 %}
+          <div class="small_product_collection-la all_sizeing">
+            <a href="{{ product.url }}" class="collection-product-url-la">
+              <img
+                src="{{ product.featured_image | image_url: width: 600 }}"
+                alt="{{ product.title }}"
+                loading="lazy"
+                width="400"
+                height="400"
+                class="collection-products-smoll images_one"
+              >
+              <img
+                src="{{ product.images[1] | image_url: width: 600 }}"
+                alt="{{ product.title }}"
+                loading="lazy"
+                width="400"
+                height="400"
+                class="collection-products-smoll images_two"
+              >
+              <p>{{ product.title }}</p>
+              <p>{{ product.selected_or_first_available_variant.price | money }}</p>
+            </a>
+          </div>
+        {% endif %}
+
+        {% if cycle_counter == 4 %}
+          </div>
+          <div class="big_product_collection-la all_sizeing video_item_in_collection">
+            <div id="collection-video-la">
+              {{ section.settings.block_video | video_tag: autoplay: section.settings.autoplay, loop: true }}
+            </div>
+          </div>
+          </div>
+          <div class="product-row-la full-width-row-la">
+        {% endif %}
+
+        {% if cycle_counter > 4 and cycle_counter <= 8 %}
+          <div class="full-width-product-la all_sizeing">
+            <a href="{{ product.url }}" class="collection-product-url-la">
+              <img
+                src="{{ product.featured_image | image_url: width: 600 }}"
+                alt="{{ product.title }}"
+                loading="lazy"
+                width="400"
+                height="400"
+                class="collection-products-smoll images_one"
+              >
+              <img
+                src="{{ product.images[1] | image_url: width: 600 }}"
+                alt="{{ product.title }}"
+                loading="lazy"
+                width="400"
+                height="400"
+                class="collection-products-smoll images_two"
+              >
+              <p>{{ product.title }}</p>
+              <p>{{ product.selected_or_first_available_variant.price | money }}</p>
+            </a>
+          </div>
+        {% endif %}
+
+        {% if cycle_counter == 8 %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+ 
+</section>
+
+{% schema %}
+{
+  "name": "Product Video Collection",
+  "class": "Collection Product Video",
+  "settings": [
+    {
+      "type": "product_list",
+      "id": "product_block",
+      "label": "Block product",
+      "limit": 8
+    },
+    {
+      "type": "video",
+      "id": "block_video",
+      "label": "Block video"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay video",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection"
+    }
+  ]
+}
+{% endschema %}

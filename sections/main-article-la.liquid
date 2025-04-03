@@ -1,0 +1,114 @@
+{{ 'blog_article-la.css' | asset_url | stylesheet_tag }}
+
+<article class="main-article-contianer-la">
+  {% for block in section.blocks %}
+    {% case block.type %}
+      {% when 'featured_image' %}
+        {% if article.image %}
+          <div class="article-template__hero-la-container">
+            <img
+              class="featured_image-in-block-la article-template__hero-la-{{ block.settings.image_height }}"
+              src="{{ article.image | image_url: width: 1100 }}"
+              loading="eager"
+              fetchpriority="high"
+              width="{{ article.image.width }}"
+              height="{{ article.image.height }}"
+              alt="{{ article.image.alt | escape }}"
+            >
+          </div>
+        {% endif %}
+
+      {% when 'header' %}
+        <div class="header_block_post-la">
+          <p>{{ block.settings.text_header_blog }}</p>
+          {% if block.settings['block_image-la'] != blank %}
+            <img
+              class="header_logo-la"
+              src="{{ block.settings.block_image-la | image_url: width:1000 }}"
+              loading="lazy"
+              width="500"
+              height="300"
+              alt="{{ block.settings.block_image-la.alt }}"
+            >
+          {% endif %}
+          <p>{{ block.settings['block_post_richtext-la'] }}</p>
+        </div>
+      {% when 'content' %}
+        <div class="content-container-la">
+          <h2 class="title-content-continer-la">{{ article.title | escape }}</h2>
+          <div class="content-la">{{ article.content }}</div>
+        </div>
+    {% endcase %}
+  {% endfor %}
+  <a href="{{ blog.url }}" class="return-blog-in-article-la">RETURN</a>
+</article>
+{% schema %}
+{
+  "name": "Blog post",
+  "tag": "section",
+  "class": "section",
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "featured_image",
+      "name": "Featured image",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "image_height",
+          "options": [
+            {
+              "value": "adapt",
+              "label": "Adapt to image"
+            },
+            {
+              "value": "small",
+              "label": "Small"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "large",
+              "label": "Large"
+            }
+          ],
+          "default": "adapt",
+          "label": "Adapt to image"
+        }
+      ]
+    },
+    {
+      "type": "content",
+      "name": "Content",
+      "limit": 1
+    },
+    {
+      "type": "header",
+      "name": "Header blog post",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text_header_blog",
+          "label": "Header title"
+        },
+        {
+          "type": "image_picker",
+          "id": "block_image-la",
+          "label": "Block post logo"
+        },
+        {
+          "type": "richtext",
+          "id": "block_post_richtext-la",
+          "label": "Block post richtext"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

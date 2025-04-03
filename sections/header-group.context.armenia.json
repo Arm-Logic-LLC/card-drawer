@@ -1,0 +1,14 @@
+{
+  "parent": "header-group.json",
+  "context": {
+    "market": "armenia"
+  },
+  "sections": {
+    "header": {
+      "settings": {
+        "logo_position": "middle-left"
+      },
+      "blocks": {}
+    }
+  }
+}

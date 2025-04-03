@@ -1,0 +1,155 @@
+<script src="{{ 'header-drawer-la.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'search-form-la.js' | asset_url}}" defer="defer"></script>
+
+<div
+  class="header-drawer-la"
+  data-breakpoint="{% if section.settings.menu_type_desktop == 'drawer' %}desktop{% else %}tablet{% endif %}"
+>
+  <div>
+    <span class="icon-hamburger-la">
+      {% render 'icon-hamburger-la' %}
+    </span>
+  </div>
+  <div class="la-menu-drawer-container">
+    <div class="gradient la-menu-drawer color-{{ color_schema }}">
+      <div class="la-inner-container">
+        <div id="predictive-search-results-la" class="predictive-search-results-la">
+        </div>
+        <div class="la-menu-drawer__navigation">
+          <div class="la-search-close-icons">
+            <form-search-la class="la-form-search-menu-drawer">
+              {% render 'la-search-form' %}
+            </form-search-la>
+
+            <span class="la-search-button-drawer-menu">
+              {% render 'icon-search-la' %}
+            </span>
+            <span class="la-close-button-drawer-menu">
+              {% render 'icon-close-la' %}
+            </span>
+          </div>
+          <ul class="la-menu-drawer-menu">
+            {% for link in primary_menu.links %}
+              <li class="la-link-menu-drawer">
+                {% if link.links != blank %}
+                  <div class=" details-la menu-oprning la-menu-drawer-item-menu-{{ forloop.index }}" id="details-menu-drawer">
+                    <div class=" summary-la">
+                      {{ link.title | escape }} 
+                      <span class="la-icon-arrow">
+                        {% render 'icon-arrow-la' %}
+                      </span>
+                    </div>
+                    <div class="la-drawer-menu-link">
+                      <div class="la-drawer-menu-link_wrapper">
+                        <div class="la-lose-menu-drawer-continer">
+                          <button aria-expanded="true" class="la-close-menu-drawer">
+                            <span class="la-icon-arrow-close">
+                              {% render 'icon-arrow-la' %}
+                            </span>
+                          </button>
+                          <span class="la-title-sub-menu-drawer">
+                            {{ link.title | escape }}
+                          </span>
+                        </div>
+                        <ul class="la-menu-drawer-menu">
+                          {% for childlink in link.links %}
+                            {% if childlink.links != blank %}
+                              <div class=" details-la menu-oprning la-sub-menu-drawer" id="details-menu-drawer">
+                                <div class="summary-la">
+                                  {{ childlink.title | escape }} 
+                                  <span class="la-icon-arrow">
+                                    {% render 'icon-arrow-la' %}
+                                  </span>
+                                </div>
+                                <div class="la-drawer-menu-childlink">
+                                  <div class="la-drawer-menu-childlink_wrapper">
+                                    <div class="la-lose-menu-drawer-continer">
+                                      <button aria-expanded="true" class="la-close-menu-drawer">
+                                        <span class="la-icon-arrow-close">
+                                          {% render 'icon-arrow-la' %}
+                                        </span>
+                                      </button>
+                                      <span class="la-title-sub-menu-drawer">
+                                        {{ link.title | escape }} > {{ childlink.title | escape }}
+                                      </span>
+                                    </div>
+                                    <ul class="la-menu-drawer-menu">
+                                      {% for grandchildlink in childlink.links %}
+                                        <li class="la-sub-menu-drawer">
+                                          <a
+                                            href="{{ grandchildlink.url }}"                                            
+                                            {% if grandchildlink.current %}
+                                              aria-current="page"
+                                            {% endif %}
+                                          >
+                                            {{ grandchildlink.title | escape }}
+                                          </a>
+                                        </li>
+                                      {% endfor %}
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+
+                            {% else %}
+                              <li class=" la-sub-menu-drawer">
+                                <a
+                                  href="{{ childlink.url }}"
+                                >
+                                  {{ childlink.title | escape }}
+                                </a>
+                              </li>
+                            {% endif %}
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                {% else %}
+                  <a href="{{ link.url }}" >
+                    {{ link.title }}
+                  </a>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+          
+          <div class="header_drawer_menu_menu">
+            <div class="header_drawer_menu_menu_wrapper">
+              <p class="help_drawer_menu_items_accounts">
+                {%- if shop.customer_accounts_enabled -%}
+                  <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}">
+                    {%- liquid
+                      if customer
+                        echo 'customer.account_fallback' | t
+                      else
+                        echo 'customer.log_in' | t
+                      endif
+                    -%}
+                  </a>
+                {% endif %}
+              </p>
+              <div class="help_drawer_menu ">
+                <ul id="help_drawer_menu_cont">
+                  {% for drawer_menu in secondary_menu.links %}
+                    <li class="help_drawer_menu_items ">
+                      <a href="{{ drawer_menu.url }}">
+                        {{ drawer_menu.title }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            <a class="tel-contact-us-la" href="tel: {{ section.settings.tel_text }}">{{ section.settings.tel_text }}</a>
+
+            </div>
+            <div class="social-list-drawer-menu-la">
+              {% render 'social-icons' %}
+            </div>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-article-la",
+      "blocks": {
+        "header_xmWC8a": {
+          "type": "header",
+          "settings": {
+            "text_header_blog": "{{ article.metafields.custom.title_header_blog_post.value }}",
+            "block_image-la": "{{ article.metafields.custom.logo_blog_post.value }}",
+            "block_post_richtext-la": "<p>{{ article.metafields.custom.richtext_blog_post | metafield_tag }}<\/p>"
+          }
+        },
+        "content_frgrda": {
+          "type": "content",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "header_xmWC8a",
+        "content_frgrda"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

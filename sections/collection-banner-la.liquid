@@ -1,0 +1,53 @@
+<script src="{{ 'collection-la.js' |  asset_url }}" defer="defer"></script>
+
+{{ 'collection-la.css' | asset_url | stylesheet_tag }}
+<section class="collection-banner-la">
+  <div class="collection-banner-la_wrapper">
+    <div class="continer_collection_title">
+      <h1 class="title_collection-la">
+        {{ collection.metafields.custom.collection_title.value }}
+      </h1>
+    </div>
+    <div class="description_continer-la">
+      <h3 class="description_info-la">
+        {{ collection.description }}
+      </h3>
+    </div>
+    <div class="swiper menu_list_collection-la">
+      <div class="swiper-wrapper menu-swiper--list-collection-la">
+        {% if collection.metafields.custom.menu.value != blank %}
+        {% for link in collection.metafields.custom.menu.value %}
+          <div class="swiper-slide swiper-items-my-la">
+            <a
+              class="link_url_menu-la swiper-url-my-la"
+              href="{{ link.url }}"
+              id="ButtonLinkCollection"
+              data-history="slide-{{ forloop.index }}"
+            >
+              {{ link.text | upcase }}
+            
+            </a>
+          </div>
+        {% endfor %}
+      {% endif %}
+      </div>
+      <div class="swiper-button-next swiper-button-next-la"></div>
+      <div class="swiper-button-prev swiper-button-prev-la"></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection banner",
+  "class": "section",
+  "settings": [
+   
+  ],
+  "presets": [
+    {
+      "name": "Collection"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,538 @@
+<style>
+  @media screen and (min-width: 990px) {
+    .header-drawer-la {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 990px) {
+    .la-search-header-button {
+      display: none;
+    }
+  }
+</style>
+
+<header class="header-la" id="main-header-la" style="background: {{ section.settings.bg_color-la }};">
+  <div class="header_wrapper-la " style="color:{{ section.settings.color_text-la }}">
+    <div class="header-menu-blocks  header-logo-la-position-{{ section.settings.logo_position_la }} header-logo-mobile-la-position-{{ section.settings.mobile_logo_position }}">
+      {% if section.settings.menu != blank %}
+        {% render 'header-drawer-la',
+          secondary_menu: section.settings.drawer_menu,
+          primary_menu: section.settings.menu
+        %}
+      {% endif %}
+      <div class="interest_berluti">
+        <div class="internation_region-la"></div>
+        <div class="destop-contact-header-la">
+          {% render 'icon-telephone-la' %}
+          <a href="{{ pages.contact.url }}" class="contact-page-la">{{ section.settings.tel_text }}</a>  
+        </div>
+      </div>
+      <div class="header_desktop_menu_block  ">
+        <div class="header_desktop__menu-position-la ">
+          {%- if request.page_type == 'index' -%}
+            <h1 class="header__heading-la">
+          {%- endif -%}
+          <a href="{{ routes.root_url }}" class="header__heading-link-la">
+            {%- if settings.logo != blank -%}
+              {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
+              {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
+              {%- assign mobile_logo_height = settings.logo_width_mobile | divided_by: settings.logo.aspect_ratio -%}
+
+              <div class="logo-desktop-la">
+                {{
+                  settings.logo
+                  | image_url: width: settings.logo_width
+                  | image_tag:
+                    class: 'header__heading-logo-la',
+                    height: logo_height,
+                    width: settings.logo_width,
+                    alt: logo_alt,
+                    preload: true
+                }}
+              </div>
+
+              <div class="logo-mobile-la">
+                {{
+                  settings.logo
+                  | image_url: width: settings.logo_width_mobile
+                  | image_tag:
+                    class: 'header__heading-logo-la',
+                    height: mobile_logo_height,
+                    width: settings.logo_width_mobile,
+                    alt: logo_alt,
+                    preload: true
+                }}
+              </div>
+
+            {%- else -%}
+              <span class="shop_name-la">{{ shop.name }}</span>
+            {%- endif -%}
+          </a>
+          {%- if request.page_type == 'index' -%}
+            </h1>
+          {%- endif -%}
+        </div>
+      </div>
+      <div class="icons-header__desktop">
+        <span class="la-search-header-button">
+          {% render 'icons-input-desktop' %}
+        </span>
+        {%- if shop.customer_accounts_enabled -%}
+          <a
+            href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+            class=" account_icons-la"
+          >
+            {% render 'icon-account-la' %}
+          </a>
+        {% endif %}
+        <a href="{{ routes.cart_url }}" class="cart-icon-mark-la" id="cart-icon-bubble">
+          {% render 'icon-cart-la' %}
+          <span class="visually-hidden-la">{{ 'templates.cart.cart' | t }}</span>
+          <div class="cart-count-bubble-la {% if cart.item_count > 0 %} product-form-active-la {% endif %}">
+                <span aria-hidden="true" class="cart-count-header-la " >{%- if cart.item_count > 0 -%}{{ cart.item_count }}{%- endif -%} </span>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="collection_header_animet">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'text' -%}
+            <div class="collection_header_animet_item-la menu-item-la">
+              <div class="contact_menu_desktop-la">
+                {% if block.settings.title_collection_page_settings != block
+                  and block.settings['url_text_desktop_menu-la'] != blank
+                  or block.settings.title_collection_page_settings != block
+                  and block.settings.collection_list_header != blank
+                %}
+                  <a href="{{ block.settings.url_text_desktop_menu-la }}" class="menu_items_title_link-la">
+                    {{ block.settings.title_collection_page_settings -}}
+                  </a>
+                {% endif %}
+              </div>
+              <div class="desktop_menu_collection_continer-la">
+                {%- if block.settings.collection_list_header != blank -%}
+                  <div class="link-drop-url-desktop">
+                    {% if block.settings['menu_text_1-la'] != blank and block.settings['menu_text_url-1-la'] %}
+                      <a href="{{ block.settings.menu_text_url-1-la }}">{{ block.settings['menu_text_1-la'] }}</a>
+                    {% endif %}
+                    {% if block.settings['menu_text_2-la'] != blank and block.settings['menu_text_url-2-la'] %}
+                      <a href="{{ block.settings.menu_text_url-2-la }}"> {{ block.settings['menu_text_2-la'] }}</a>
+                    {% endif %}
+                  </div>
+                  <div class="item-desktop-collection-la">
+                    {% for collection in block.settings.collection_list_header %}
+                      <div class="desktop_item_in_collection_menu">
+                        <a href="{{ collection.url }}">
+                          <img
+                            src="{{ collection.image | image_url: width: 500 }}"
+                            width="400px"
+                            height="500px"
+                            alt="{{ collection.alt }}"
+                          >
+                          <p>
+                            {{ collection.title }}
+                          </p>
+                        </a>
+                      </div>
+                    {% endfor %}
+                  </div>
+                {%- endif -%}
+              </div>
+              
+            </div>
+            {% when "image" %}
+             {% if block.settings.title_continer_menu != blank and block.settings.url_text_desktop_menu-la or  block.settings.title_continer_menu != blank and block.settings.image_hermitage_small_one %}
+              <div class="collection_header_animet-hermitage_item-la menu-item-la info_hermitage_container_la">
+                <div class="contact_menu_desktop-la">
+                  <a href="{{ block.settings.url_text_desktop_menu-la }}" class="menu_items_title_link-la">
+                    {{ block.settings.title_continer_menu -}}
+                  </a>
+                </div>
+               <div class="info_hermitage_continer-la ">
+                <div class="info_section-left">
+                  <h2>{{ block.settings.title_hermitage }}</h2>
+                  <a href="{{ block.settings.info_hermitage_url }}" class="hermitage_url-la url-hermitage-page" >
+                    <p>{{ block.settings.info_hermitage_text }}</p>
+                  </a>
+                  <a href="{{ block.settings.info_about_url }}" class="hermitage_url-la url-hermitage-page">
+                    <p>{{ block.settings.info_about_text }}</p>
+                  </a>
+                  <a href="{{ block.settings.info_boutique_url }}" class="hermitage_url-la url-hermitage-page">
+                    <p>{{ block.settings.info_boutique_text }}</p>
+                  </a>
+                </div>
+                <div class="image_section-la">
+                  <a href="{{ block.settings.small_image_one_url }}" class="hermitage_url-la">
+                    <img
+                      src="{{ block.settings.image_hermitage_small_one |  image_url: width: 600 }}"
+                      width="400"
+                      height="400"
+                      alt="{{ block.settings.image_hermitage_small_one.alt }}"
+                      class="hermitage_img-la"
+                    >
+                    <p>{{ block.settings.small_image_title_one }}</p>
+                  </a>
+                </div>
+                <div class="image_section-la">
+                  <a href="{{ block.settings.small_image_two_url }}" class="hermitage_url-la">
+                    <img
+                      src="{{ block.settings.image_hermitage_small_two |  image_url: width: 600 }}"
+                      width="400"
+                      height="400"
+                      alt="{{ block.settings.image_hermitage_small_two.alt }}"
+                      class="hermitage_img-la"
+                    >
+                    <p>{{ block.settings.small_image_title_two }}</p>
+                  </a>
+                </div>
+                <div class="image_section-la">
+                  <a href="{{ block.settings.small_image_three_url }}" class="hermitage_url-la">
+                    <img
+                      src="{{ block.settings.image_hermitage_small_three |  image_url: width: 600 }}"
+                      width="400"
+                      height="400"
+                      alt="{{ block.settings.image_hermitage_small_three.alt }}"
+                      class="hermitage_img-la"
+                    >
+                    <p>{{ block.settings.small_image_title_three }}</p>
+                  </a>
+                </div>
+                <div class="image_section-la">
+                  <a href="{{ block.settings.small_image_four_url }}" class="hermitage_url-la">
+                    <img
+                      src="{{ block.settings.image_hermitage_small_four |  image_url: width: 600 }}"
+                      width="400"
+                      height="400"
+                      alt="{{ block.settings.image_hermitage_small_four.alt }}"
+                      class="hermitage_img-la"
+                    >
+                    <p>{{ block.settings.small_image_title_four }}</p>
+                  </a>
+                </div>
+               </div>
+              </div>
+             {% endif %}
+             {% when "image_two" %}
+              <div class="collection_header_animet-boutique_item-la menu-item-la info_boutique_container_la">
+                <div class="contact_menu_desktop-la">
+                  <a href="{{ block.settings.url_boutique_continrer}}" class="menu_items_title_link-la">
+                    {{ block.settings.title_boutique_continer -}}
+                  </a>
+                </div>
+                <div class="boutique_continer-la">
+                    <div class="left_boutique-la">
+                      <h2>{{ block.settings.title_butik }}</h2>
+                      <p>{{ block.settings.richtext_butik }}</p>
+                      <a href="{{ block.settings.url_boutique }}" class=" butik-url-la" >
+                        {{ block.settings.learn_more_text }}
+                      </a>
+                    </div>
+                    <div class="right_boutique-la">
+                      <a href="{{ block.settings.url_image_butik_large }}"  >
+                        <img src="{{ block.settings.image_butik_large | image_url: width:1000  }}" width="1000" height="700" alt="{{ block.settings.image_butik_large.alt }}">
+                      </a>
+                    </div>
+                </div>
+              </div>
+        {%- endcase -%}
+      {%- endfor -%}
+      <div class="la-menu_desktop-search_continer">
+        <div class="la-menu_desktop-search_continer_wrapper">
+          <form-search-la class="la-form-search-menu-drawer la-menu_desktop_search">
+            {% render 'la-search-form' %}
+            {% render 'icon-search-desktop-la' %}
+          </form-search-la>
+          <div id="desktop_menu_search-la"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+{% schema %}
+{
+  "name": "t:sections.header.name",
+  "class": "section-header",
+  "settings": [
+    {
+      "type": "color_background",
+      "id": "bg_color-la",
+      "label": "Background Color"
+    },
+    {
+     "type": "text",
+     "id":"tel_text",
+     "label": "Tel name"
+    },
+    {
+      "type": "color",
+      "id": "color_text-la",
+      "label": "Text Color"
+    },
+    {
+      "type": "select",
+      "id": "logo_position_la",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.header.settings.logo_position.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.header.settings.logo_position.options__2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.header.settings.logo_position.options__3.label"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.header.settings.logo_position.label",
+      "info": "t:sections.header.settings.logo_help.content"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "t:sections.header.settings.menu_1.label"
+    },
+    {
+      "type": "link_list",
+      "id": "drawer_menu",
+      "label": "t:sections.header.settings.menu_2.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header.settings.mobile_layout.content"
+    },
+    {
+      "type": "select",
+      "id": "mobile_logo_position",
+      "options": [
+        {
+          "value": "center",
+          "label": "t:sections.header.settings.mobile_logo_position.options__1.label"
+        },
+        {
+          "value": "left",
+          "label": "t:sections.header.settings.mobile_logo_position.options__2.label"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.header.settings.mobile_logo_position.label"
+    },
+
+    {
+      "type": "header",
+      "content": "t:sections.all.spacing"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Block Collections",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "text",
+          "label": "Menu title",
+          "id": "title_collection_page_settings"
+        },
+        {
+          "type": "url",
+          "label": "Text url desktop",
+          "id": "url_text_desktop_menu-la"
+        },
+        {
+          "type": "text",
+          "label": "Menu text one",
+          "id": "menu_text_1-la"
+        },
+        {
+          "type": "text",
+          "label": "Menu text two",
+          "id": "menu_text_2-la"
+        },
+        {
+          "type": "url",
+          "label": "Menu url one",
+          "id": "menu_text_url-1-la"
+        },
+        {
+          "type": "url",
+          "label": "Menu url two",
+          "id": "menu_text_url-2-la"
+        },
+        {
+          "type": "collection_list",
+          "id": "collection_list_header",
+          "label": "Collections",
+          "limit": 6
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Block hermitage",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id":"title_continer_menu",
+          "label":"Title chef"
+        },
+        {
+          "type": "url",
+          "id": "url_continer_menu",
+          "label": "Url chef"
+        },
+        
+        {
+          "type": "text",
+          "id": "small_image_title_one",
+          "label": "Small image title one"
+        },
+        {
+          "type": "url",
+          "id": "small_image_one_url",
+          "label": "Small image one url"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_hermitage_small_one",
+          "label": "Image small one"
+        },
+        {
+          "type": "text",
+          "id": "small_image_title_two",
+          "label": "Small image title two"
+        },
+        {
+          "type": "url",
+          "id": "small_image_two_url",
+          "label": "Small image two url"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_hermitage_small_two",
+          "label": "Image small two"
+        },
+        {
+          "type": "text",
+          "id": "small_image_title_three",
+          "label": "Small image title three"
+        },
+        {
+          "type": "url",
+          "id": "small_image_three_url",
+          "label": "Small image three url"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_hermitage_small_three",
+          "label": "Image small three"
+        },
+        {
+          "type": "text",
+          "id": "small_image_title_four",
+          "label": "Small image title four"
+        },
+        {
+          "type": "url",
+          "id": "small_image_four_url",
+          "label": "Small image four url"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_hermitage_small_four",
+          "label": "Image small four"
+        },
+        {
+          "type": "text",
+          "id": "title_hermitage",
+          "label": "Title hermitage"
+        },
+        {
+          "type": "text",
+          "label": "Info about",
+          "id": "info_about_text"
+        },
+        {
+          "type": "url",
+          "label": "Info about url",
+          "id": "info_about_url"
+        },
+        {
+          "type": "text",
+          "label": "Info hermitage",
+          "id": "info_hermitage_text"
+        },
+        {
+          "type": "url",
+          "label": "Info hermitage url",
+          "id": "info_hermitage_url"
+        },
+        {
+          "type": "text",
+          "label": "Info boutique",
+          "id": "info_boutique_text"
+        },
+        {
+          "type": "url",
+          "label": "Info boutique url",
+          "id": "info_boutique_url"
+        }
+
+      ]
+    },
+    {
+      "type": "image_two",
+      "name":"Block boutique",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title_boutique_continer",
+          "label": "Title boutique"
+        },
+        {
+          "type": "url",
+          "id": "url_boutique_continrer",
+          "label":"Url boutique continer"
+        },
+        {
+          "type": "url",
+          "id": "url_image_butik_large",
+          "label": "Url image boutique"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_butik_large",
+          "label": "Image large boutique"
+        },
+        {
+          "type": "text",
+          "id": "title_butik",
+          "label": "Title info boutique"
+        },
+        {
+          "type": "richtext",
+          "id": "richtext_butik",
+          "label": "Boutique info"
+        },
+
+        {
+          "type": "text",
+          "id": "learn_more_text",
+          "label": "Armos boutique"
+        },
+        {
+          "type": "url",
+          "id": "url_boutique",
+          "label": "Url boutique"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

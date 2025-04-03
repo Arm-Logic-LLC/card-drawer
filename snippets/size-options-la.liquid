@@ -1,0 +1,31 @@
+{% if variant_picker_block %}
+    <div class="size-options-la">
+      {% for option in product.options_with_values %}
+        {% if option.name == 'Size' %}
+          <div class="dropdown-container-la">
+            <div class="dropdown-header-la">
+              <span class="dropdown-selected-la"> Select Size </span>
+              <span class="dropdown-arrow-la">{% render 'icon-arrow-selcted' %}</span>
+            </div>
+            <div class="dropdown-menu-la">
+              {% for value in option.values %}
+                <div
+                  class="dropdown-item-la {% if value.available %} available-value-la {% else %} unavailable-value-la {% endif %}"
+                  data-value="{{ value }}"
+                  id="{{ value.variant.id}}"
+                >
+                  {% if value.available %}
+                    {{ value }}
+                  {% else %}
+                    {{ value }}
+                    <p class="unavailable-stock-value-la">Out of Stock</p>
+                  {% endif %}
+                </div>
+              {% endfor %}
+              {% render 'product-modal-contact-form' %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}

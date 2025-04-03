@@ -1,0 +1,28 @@
+{
+  "sections": {
+    "banner": {
+      "type": "collection-banner-la",
+      "settings": {}
+    },
+    "collection-video": {
+      "type": "collection-product-banner-video",
+      "settings": {
+        "product_block": "{{ collection.metafields.custom.products.value }}",
+        "block_video": "{{ collection.metafields.custom.video.value }}",
+        "autoplay": true
+      }
+    },
+    "grid-two": {
+      "type": "collection-grid-la",
+      "settings": {
+        "products_per_page": 60,
+        "columns_desktop": 4
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "collection-video",
+    "grid-two"
+  ]
+}

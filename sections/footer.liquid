@@ -1,0 +1,337 @@
+{{ 'footer-la.css' | asset_url | stylesheet_tag }}
+{{ 'component-list-social.css' | asset_url | stylesheet_tag }}
+
+<style>
+      .section-{{ section.id }}-padding{
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+</style>
+<footer class="footer-la section-{{ section.id }}-padding">
+  <div class="footer-wrapper-la">
+    <div class="footer-grid-container">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'brand_information' -%}
+            {%- if block.settings['show_social-la'] -%}
+              <div class="footer__information-container-la">
+                {% if block.settings['title_social_icons-la'] != blank %}
+                  <h2 class="title_blocks-la barnd-info-title-la">
+                    {{ block.settings['title_social_icons-la'] }}
+                  </h2>
+                {% endif %}
+                <div class="footer_list-social_container-la">
+                  {% if block.settings['title_social_icons_mobile-la'] %}
+                    <p class="brand_info_icons_title_mobile-la">
+                      {{ block.settings['title_social_icons_mobile-la'] }}
+                    </p>
+                  {% endif %}
+                  {%- render 'social-icons', class: 'footer__list-social-la' -%}
+                </div>
+                <div class="email-comtiner-la">
+                  {% if block.settings.paragraf_email != blank %}
+                    <p class="paragraf-email-la">{{ block.settings.paragraf_email }}</p>
+                  {% endif %}
+                  <div class="email-information-la">
+                    {%- form 'customer', id: 'ContactFooter', class: 'footer__newsletter newsletter-form' -%}
+                      <input type="hidden" name="contact[tags]" value="newsletter">
+                      <div class="newsletter-form__field-wrapper">
+                        <div class="field filed-la">
+                          <input
+                            id="NewsletterForm--{{ section.id }}"
+                            type="email"
+                            name="contact[email]"
+                            class="field__input field__input-la"
+                            value="{{ form.email }}"
+                            aria-required="true"
+                            autocorrect="off"
+                            autocapitalize="off"
+                            autocomplete="email"
+                            {% if form.errors %}
+                              autofocus aria-invalid="true" aria-describedby="ContactFooter-error"
+                            {% elsif form.posted_successfully? %}
+                              aria-describedby="ContactFooter-success"
+                            {% endif %}
+                            placeholder="{{ 'newsletter.label' | t }}"
+                            required
+                          >
+                          <label class="field__label  field__label-la" for="NewsletterForm--{{ section.id }}">
+                            Enter Your Email
+                          </label>
+                          <button
+                            type="submit"
+                            class="newsletter-form__button field__button fielid_button-la"
+                            name="commit"
+                            id="Subscribe"
+                            aria-label="{{ 'newsletter.button_label' | t }}"
+                          >
+                            Subscribe
+                          </button>
+                        </div>
+                        {%- if form.errors -%}
+                          <small class="newsletter-form__message form__message" id="ContactFooter-error">
+                            {%- render 'icon-error' -%}
+                            {{- form.errors.translated_fields.email | capitalize }}
+                            {{ form.errors.messages.email -}}
+                          </small>
+                        {%- endif -%}
+                      </div>
+                      {%- if form.posted_successfully? -%}
+                        <h3
+                          class="newsletter-form__message newsletter-form__message--success form__message"
+                          id="ContactFooter-success"
+                          tabindex="-1"
+                          autofocus
+                        >
+                          {% render 'icon-success' -%}
+                          {{- 'newsletter.success' | t }}
+                        </h3>
+                      {%- endif -%}
+                    {%- endform -%}
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+            <div class="menu-list-link-all-la">
+          {% when 'list_help-la' %}
+            {% if block.settings['link_list_help-la'] %}
+              <div class="link_list_help_container-la link_list_continer-la">
+                {% if block.settings['link_list_help_title-la'] != blank %}
+                  <div class="title_block_continer-la">
+                    <h2 class="title_blocks-la">
+                      {{ block.settings['link_list_help_title-la'] }}
+                    </h2>
+                    <span class="mobile-select-plus">
+                      {% render 'icon-plus' %}
+                    </span>
+                    <span class="mobile-select-minus">
+                      {% render 'icon-minus' %}
+                    </span>
+                  </div>
+                  <div class="help_link_list-la link_list_unset-la">
+                    <ul class="link_list_item-list-la">
+                      {% for link_list_help in block.settings['link_list_help-la'].links %}
+                        <li class="link_list-item-la">
+                          <a href="{{ link_list_help.url }}" class="link_list_url-la">{{ link_list_help.title }}</a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+
+          {% when 'list_support-la' %}
+            {% if block.settings['link_list_support-la'] %}
+              <div class="link_list_support_container-la link_list_continer-la">
+                {% if block.settings['link_list_support_title-la'] != blank %}
+                  <div class="title_block_continer-la">
+                    <h2 class="title_blocks-la">
+                      {{ block.settings['link_list_support_title-la'] }}
+                    </h2>
+                    <span class="mobile-select-plus">
+                      {% render 'icon-plus' %}
+                    </span>
+                    <span class="mobile-select-minus">
+                      {% render 'icon-minus' %}
+                    </span>
+                  </div>
+                  <div class="support_link_list-la link_list_unset-la">
+                    <ul class="link_list_item-list-la">
+                      {% for link_list_support in block.settings['link_list_support-la'].links %}
+                        <li class="link_list-item-la">
+                          <a href="{{ link_list_support.url }}" class="link_list_url-la">
+                            {{- link_list_support.title -}}
+                          </a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+          {% when 'list_men-la' %}
+            {% if block.settings['link_list_men-la'] %}
+              <div class="link_list_men_container-la link_list_continer-la">
+                {% if block.settings['link_list_men_title-la'] != blank %}
+                  <div class="title_block_continer-la">
+                    <h2 class="title_blocks-la">
+                      {{ block.settings['link_list_men_title-la'] }}
+                    </h2>
+                    <span class="mobile-select-plus">
+                      {% render 'icon-plus' %}
+                    </span>
+                    <span class="mobile-select-minus">
+                      {% render 'icon-minus' %}
+                    </span>
+                  </div>
+                  <div class="men_link_list-la link_list_unset-la">
+                    <ul class="link_list_item-list-la">
+                      {% for link_list_men in block.settings['link_list_men-la'].links %}
+                        <li class="link_list-item-la">
+                          <a href="{{ link_list_men.url }}" class="link_list_url-la">{{ link_list_men.title }}</a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+    <div class="footer__content-bottom-wrapper-la">
+      <div class=" footer__column--info-la">
+        {%- if section.settings.payment_enable -%}
+          <div class="footer__payment-la">
+            <span class="visually-hidden">{{ 'sections.footer.payment' | t }}</span>
+            <div class=" list-payment-la" role="list">
+              {% render 'payment-icons', class: 'icons-payment-la' %}
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+      <div class="footer__copyright-la">
+        <p class="copyright__content-la">
+          &copy; {{ 'now' | date: '%Y' }}, {{ shop.name | link_to: routes.root_url -}}
+        </p>
+        <p class="copyright__content-la">{{ powered_by_link }}</p>
+        {%- if section.settings.show_policy -%}
+          <ul class="policies-la">
+            {%- for policy in shop.policies -%}
+              {%- if policy != blank -%}
+                <li>
+                  <p class="copyright__content">
+                    <a href="{{ policy.url }}">{{ policy.title }}</a>
+                  </p>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "blocks": [
+    {
+      "type": "brand_information",
+      "name": "t:sections.footer.blocks.brand_information.name",
+      "settings": [
+        {
+          "type": "text",
+          "label": "Title",
+          "id": "title_social_icons-la"
+        },
+        {
+          "type": "text",
+          "id": "title_social_icons_mobile-la",
+          "label": "Title social icons mobile"
+        },
+        {
+          "type": "text",
+          "label": "Pargraf Email",
+          "id": "paragraf_email"
+        },
+        {
+          "type": "paragraph",
+          "content": "t:sections.footer.blocks.brand_information.settings.paragraph.content"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.footer.blocks.brand_information.settings.header__1.content"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_social-la",
+          "default": true,
+          "label": "t:sections.footer.blocks.brand_information.settings.show_social.label",
+          "info": "t:sections.footer.blocks.brand_information.settings.show_social.info"
+        }
+      ]
+    },
+    {
+      "type": "list_help-la",
+      "name": "Link list help",
+      "settings": [
+        {
+          "type": "text",
+          "label": "Link list help title",
+          "id": "link_list_help_title-la"
+        },
+        {
+          "type": "link_list",
+          "label": "Link list help",
+          "id": "link_list_help-la"
+        }
+      ]
+    },
+    {
+      "type": "list_support-la",
+      "name": "Link list support",
+      "settings": [
+        {
+          "type": "text",
+          "label": "Link list support title",
+          "id": "link_list_support_title-la"
+        },
+        {
+          "type": "link_list",
+          "label": "Link list support",
+          "id": "link_list_support-la"
+        }
+      ]
+    },
+    {
+      "type": "list_men-la",
+      "name": "Link list men",
+      "settings": [
+        {
+          "type": "text",
+          "label": "Link list men title",
+          "id": "link_list_men_title-la"
+        },
+        {
+          "type": "link_list",
+          "label": "Link list men",
+          "id": "link_list_men-la"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "payment_enable",
+      "default": true,
+      "label": "t:sections.footer.settings.payment_enable.label"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "presets": []
+}
+{% endschema %}

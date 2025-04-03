@@ -1,0 +1,222 @@
+<script>
+  const totalProducts = {{ collection.products_count }};
+  let productsLoaded = 9;
+  let page = 2;
+  let loading = false;
+
+
+
+  if (
+  localStorage.getItem("lastCollectionURL") !== window.location.href || 
+  !localStorage.getItem("collectionMetaTitle")
+) {
+  localStorage.setItem("lastCollectionURL", window.location.href);
+  localStorage.setItem("collectionMetaTitle", "{{ collection.metafields.custom.collection_title.value }}");
+}
+
+  function updateFilterURL() {
+    const currentUrl = new URL(window.location.href);
+    const viewType = window.innerWidth <= 989 ? 'grid-big' : 'grid';
+
+    if (!currentUrl.searchParams.has('view')) {
+      currentUrl.searchParams.append('view', viewType);
+    }
+    window.history.replaceState(null, '', currentUrl.href);
+  }
+  function reorderURLParams() {
+    const currentUrl = new URL(window.location.href);
+    const params = new URLSearchParams(currentUrl.search);
+    const newParams = new URLSearchParams();
+
+    for (const [key, value] of params) {
+      if (key !== 'view') {
+        newParams.append(key, value);
+      }
+    }
+
+    if (params.has('view')) {
+      newParams.append('view', params.get('view'));
+    }
+
+    currentUrl.search = newParams.toString();
+    window.history.replaceState(null, '', currentUrl.href);
+  }
+
+  reorderURLParams();
+
+  updateFilterURL();
+
+  const loadMoreProducts = () => {
+    if (loading || productsLoaded >= totalProducts) return;
+    loading = true;
+
+    const url = `${window.location.pathname + window.location.search}&page=${page}`;
+
+    fetch(url)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        return response.text();
+      })
+      .then(data => {
+        const parser = new DOMParser();
+        const newProducts = parser.parseFromString(data, 'text/html').querySelectorAll('.product_rows-load-la');
+        if (newProducts.length === 0) {
+          loading = false;
+          return;
+        }
+
+        const productContainer = document.getElementById('continer_collection_grid-la');
+        newProducts.forEach(product => {
+          setTimeout(() => {
+            product.classList.add("fade-in-la")
+          }, 100)
+
+          productContainer.appendChild(product);
+        });
+
+        productsLoaded += newProducts.length;
+        loading = false;
+      })
+      .catch(error => {
+        console.error('Error loading more products:', error);
+        loading = false;
+      });
+    page++
+  };
+
+  window.addEventListener('scroll', () => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 600 && !loading) {
+      loadMoreProducts();
+    }
+  });
+</script>
+
+
+{% assign product_counter = 0 %}
+{% assign cycle_counter = 0 %}
+<div class="products-grid continer-all-in-collection" id="continer_collection_grid-la">
+  {% paginate collection.products by 18 %}
+  {% for product in collection.products %}
+  {% assign product_counter = product_counter | plus: 1 %}
+  {% assign cycle_counter = cycle_counter | plus: 1 %}
+
+  {% if cycle_counter == 1 %}
+  <div class="product-row-la product-row_collection-la product_rows-load-la">
+    <div class="column-la first-column-la small-column-la">
+      {% endif %}
+
+      {% if cycle_counter <= 4 %} <div class="small_product_collection-la all_sizeing ">
+        <a href="{{ product.url }}" class="collection-product-url-la">
+          <img loading="lazy" src="{{ product.featured_image |  image_url: width: 600  }}" width="400" height="400"
+            alt="{{ product.title }}" class="collection-products-smoll images_one">
+          <img src="{{ product.images[1] |  image_url: width: 600  }}" width="400" height="400"
+            alt="{{ product.title }}" loading="lazy" class="collection-products-smoll images_two">
+          <p>{{ product.title }}</p>
+          <p>{{ product.selected_or_first_available_variant.price | money }}</p>
+        </a>
+    </div>
+    {% endif %}
+
+    {% if cycle_counter == 5 %}
+  </div>
+  <div class="column-la second-column-la big-column-la">
+    <div class="big_product_collection-la all_sizeing ">
+      <a href="{{ product.url }}" class="collection-product-url-la collection-product-big-url-la">
+        <img src="{{ product.featured_image |  image_url: width: 1000 }}" width="800" height="800"
+          alt="{{ product.title }}" loading="lazy" class="collection-products-big images_one">
+        <img src="{{ product.images[1] |  image_url: width: 1000 }}" width="800" height="800" alt="{{ product.title }}"
+          loading="lazy" class="collection-products-big images_two">
+        <p>{{ product.title }}</p>
+        <p>{{ product.selected_or_first_available_variant.price | money }}</p>
+      </a>
+    </div>
+  </div>
+</div>
+{% assign product_counter = 0 %}
+{% endif %}
+
+{% if cycle_counter > 5 and cycle_counter <= 9 %} {% if product_counter==1 %} <div
+  class="product-row-la full-width-row-la product_rows-load-la">
+  {% endif %}
+  <div class="full-width-product-la all_sizeing ">
+    <a href="{{ product.url }}" class="collection-product-url-la">
+      <img src="{{ product.featured_image |  image_url: width:600  }}" width="400" height="400" loading="lazy"
+        alt="{{ product.title }}" class="collection-products-smoll images_one">
+      <img src="{{ product.images[1] |  image_url: width:600  }}" width="400" height="400" loading="lazy"
+        alt="{{ product.title }}" class="collection-products-smoll images_two">
+      <p>{{ product.title }}</p>
+      <p>{{ product.selected_or_first_available_variant.price | money }}</p>
+    </a>
+  </div>
+  {% if product_counter == 4 %}
+  </div>
+  {% assign product_counter = 0 %}
+  {% endif %}
+  {% endif %}
+
+  {% if cycle_counter > 9 and cycle_counter <= 14 %} {% if product_counter==1 %} <div
+    class="product-row-la product-row_collection-la product_rows-load-la">
+    <div class="column-la first-column-la big-column-la">
+      <div class="big_product_collection-la all_sizeing ">
+        <a href="{{ product.url }}" class="collection-product-url-la collection-product-big-url-la">
+          <img src="{{ product.featured_image |  image_url: width:1000  }}" height="800" width="800" loading="lazy"
+            alt="{{ product.title }}" class="collection-products-big images_one">
+          <img src="{{ product.images[1] |  image_url: width:1000  }}" height="800" width="800" loading="lazy"
+            alt="{{ product.title }}" class="collection-products-big images_two">
+          <p>{{ product.title }}</p>
+          <p>{{ product.selected_or_first_available_variant.price | money }}</p>
+        </a>
+      </div>
+    </div>
+
+    <div class="column-la second-column-la small-column-la">
+      {% endif %}
+
+      {% if cycle_counter > 10 %}
+      <div class="small_product_collection-la all_sizeing ">
+        <a href="{{ product.url }}" class="collection-product-url-la ">
+          <img src="{{ product.featured_image |  image_url: width: 600 }}" width="400" height="400" loading="lazy"
+            alt="{{ product.title }}" class="collection-products-smoll images_one">
+          <img src="{{ product.images[1] |  image_url: width: 600 }}" width="400" height="400" loading="lazy"
+            alt="{{ product.title }}" class="collection-products-smoll images_two">
+          <p>{{ product.title }}</p>
+          <p>{{ product.selected_or_first_available_variant.price | money }}</p>
+        </a>
+      </div>
+      {% endif %}
+
+      {% if cycle_counter == 14 %}
+    </div>
+    </div>
+    {% assign product_counter = 0 %}
+    {% endif %}
+    {% endif %}
+
+    {% if cycle_counter > 14 and cycle_counter <= 18 %} {% if product_counter==1 %} <div
+      class="product-row-la full-width-row-la product_rows-load-la">
+      {% endif %}
+      <div class="full-width-product-la all_sizeing ">
+        <a href="{{ product.url }}" class="collection-product-url-la">
+          <img src="{{ product.featured_image |  image_url: width: 600 }}" width="400" height="400" loading="lazy"
+            alt="{{ product.title }}" class="collection-products-smoll images_one">
+          <img src="{{ product.images[1] |  image_url: width: 600 }}" width="400" height="400" loading="lazy"
+            alt="{{ product.title }}" class="collection-products-smoll images_two">
+          <p>{{ product.title }}</p>
+          <p>{{ product.selected_or_first_available_variant.price | money }}</p>
+        </a>
+      </div>
+      {% if product_counter == 4 %}
+      </div>
+      {% assign product_counter = 0 %}
+      {% endif %}
+      {% endif %}
+
+      {% if cycle_counter == 18 %}
+      {% assign cycle_counter = 0 %}
+      {% endif %}
+      {% endfor %}
+      {% endpaginate %}
+      </div>

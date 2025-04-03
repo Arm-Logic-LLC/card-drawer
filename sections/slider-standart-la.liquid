@@ -1,0 +1,118 @@
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  @media screen and (max-width: 990px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+  }
+</style>
+<section class="standart_slider-la section-{{ section.id }}-padding">
+  <div class="standart_slider_wrapper-la">
+    <div class="slider-standart-title_container-la">
+      <h2>{{ section.settings.title_in_slider_section }}</h2>
+    </div>
+    <div
+      class="swiper swiper-slider-standart-container-la"
+      aria-selected-standart="{{ section.settings.checkbox_center }}"
+    >
+      <div class="swiper-wrapper swiper-slider-standart-container-wrapper-la">
+        {% if section.settings.product_list != blank and section.settings.collection_list == blank %}
+          {% for product in section.settings.product_list %}
+            <div class="swiper-slide swiper-slider-standart-item-la">
+              <a href="{{ product.url }}" class="url-product-standart-item-la" data-set="remove">
+                <img
+                  src="{{ product.metafields.custom.product_image_standart_slider.value | image_url: width: 1000 }}"
+                  width="300"
+                  height="200"
+                  loading="lazy"
+                  alt="{{ product.metafields.custom.product_image_standart_slider.alt }}"
+                  class="image-standart-slider-la"
+                >
+                <p class="standart-slider-product-title-la">{{ product.title }}</p>
+                <p class="slider-standart-product-price-la"> {{ product.selected_or_first_available_variant.price | money }}</p>
+              </a>
+            </div>
+          {% endfor %}
+        {% elsif section.settings.collection_list != blank and section.settings.product_list == blank %}
+          {% for collection in section.settings.collection_list %}
+            <div class="swiper-slide swiper-slider-standart-item-la">
+              <a href="{{ collection.url }}" class="url-product-standart-item-la" data-set="remove">
+                <img
+                  src="{{ collection.metafields.custom.collection_standart_slider.value | image_url: width: 1000 }}"
+                  width="300"
+                  height="200"
+                  alt="{{ collection.metafields.custom.product_image_standart_slider.alt }}"
+                  class="image-standart-slider-la"
+                >
+                <p class="standart-slider-product-title-la">{{ collection.title }}</p>
+              </a>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+      <div class="swiper-pagination swiper-page-scroll-la"></div>
+      <div class="swiper-button-next swiper-button-next-standart-la"></div>
+      <div class="swiper-button-prev swiper-button-prev-standart-la"></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Standart slider V6",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title_in_slider_section",
+      "label": "Title slider section"
+    },
+    {
+      "type": "product_list",
+      "id": "product_list",
+      "label": "Product list"
+    },
+    {
+      "type": "collection_list",
+      "id": "collection_list",
+      "label": "Collection list"
+    },
+    {
+      "type": "checkbox",
+      "id": "checkbox_center",
+      "label": "Checkbox Center",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Standart slider"
+    }
+  ]
+}
+{% endschema %}

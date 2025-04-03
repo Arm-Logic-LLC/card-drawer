@@ -1,0 +1,91 @@
+{{ 'history-section-la.css' | asset_url | stylesheet_tag }}
+
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  @media screen and (max-width: 990px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+  }
+</style>
+<section class="  section-{{ section.id }}-padding">
+  <div class="history_section_wrapper-la ">
+    <div class="history-section-richtext-continer">
+      <h2 class="history-section-title-la">{{ section.settings.history_title }}</h2>
+      {{ section.settings.reichtext_descripstion }}
+    </div>
+    <div class="swiper-wrapper history-section-block-container-la {% if section.settings.reichtext_descripstion != blank %} richtext_disability {% endif %}">
+        {% for block in section.blocks %}
+          {% if  block.settings.image_picker-la != blank %}
+            <div class="history_item-la swiper-slide">
+              <img class="history-images-la" src="{{ block.settings.image_picker-la |  image_url: width: 800 }}" width="200" height="400" alt="{{ block.settings.image_picker-la.alt }}">  
+            </div>
+          {% endif %}
+        {% endfor %}
+    </div>
+    <div class="swiper-pagination_history"></div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "History V1",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "history_title",
+      "label": "History title"
+    },
+    {
+      "type": "richtext",
+      "id": "reichtext_descripstion",
+      "label": "Description"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "name": "History image",
+      "type": "history_image",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image_picker-la",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hsitory"
+    }
+  ]
+}
+{% endschema %}

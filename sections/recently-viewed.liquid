@@ -1,0 +1,126 @@
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  @media screen and (max-width: 990px) {
+  .section-{{ section.id }}-padding {
+  padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+  padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  }
+</style>
+
+<div class="recently-viewed-la section-{{ section.id }}-padding" >
+  <div class="swiper recently-viewed-wrapper-la">
+    <h2 class="recently-viewed-title-la">{{ section.settings.recently_title_id }}</h2>
+    <div class="recently-viewed-container-la swiper-wrapper"></div>
+    <div class="swiper-pagination swiper-page-recently-la"></div>
+    <div class="swiper-button-next swiper-button-next-recently-la"></div>
+    <div class="swiper-button-prev swiper-button-prev-recently-la"></div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const product = {
+      id: `{{ product.id }}`,
+      title: `{{ product.title }}`,
+      url: `{{ product.url }}`,
+      price: `{{ product.price | money }}`,
+      image: `{{ product.featured_image | image_url: width: 500 }}`
+    };
+
+    let recentlyViewed = JSON.parse(localStorage.getItem('recentlyViewed')) || [];
+    recentlyViewed = recentlyViewed.filter(function(item) {
+      return item.id !== product.id;
+    });
+    recentlyViewed.unshift(product);
+
+    localStorage.setItem('recentlyViewed', JSON.stringify(recentlyViewed));
+
+    const recentlyViewedContainer = document.querySelector('.recently-viewed-container-la');
+    if (recentlyViewedContainer) {
+      recentlyViewedContainer.innerHTML = recentlyViewed.map(function(item) {
+        return `
+          <div class="recently-viewed-item-la swiper-slide">
+            <a href="${item.url}" class='recently-viewed-url-la' data-set="remove">
+              <img src="${item.image}" class="recently-viewed-item-image-la" alt="${item.title}">
+              <p class="recently-viewed-item-title-la">${item.title}</p>
+              <p class ="recently-viewed-price-la">${item.price}</p>
+            </a>
+          </div>
+        `;
+      }).join('');
+
+        new Swiper('.recently-viewed-wrapper-la', {
+          slidesPerView: 2.5,
+          spaceBetween: 8,
+          navigation: {
+            nextEl: ".swiper-button-next-recently-la",
+            prevEl: ".swiper-button-prev-recently-la",
+          },
+          breakpoints: {
+            989: {
+              slidesPerView: 4, 
+            }
+          },
+          pagination: {
+            el: ".swiper-page-recently-la",
+          },
+        });
+        const aTags = document.querySelectorAll('.recently-viewed-url-la');
+      aTags.forEach((el) => {
+        el.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (el.hasAttribute('data-set')) {
+            localStorage.removeItem('lastCollectionURL');
+            localStorage.removeItem('collectionMetaTitle');
+          }
+          window.location.href = el.href; 
+        });
+      });
+    } else {
+      console.error('Element with class .recently-viewed-container-la not found!');
+    }
+  });
+</script>
+{% schema %}
+{
+  "name": "Recently viewed",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "recently_title_id",
+      "label": "Recently title"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Recently"
+    }
+  ]
+}
+{% endschema %}

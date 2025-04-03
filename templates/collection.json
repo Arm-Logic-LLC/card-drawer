@@ -1,0 +1,19 @@
+{
+  "sections": {
+    "banner": {
+      "type": "collection-banner-la",
+      "settings": {}
+    },
+    "product-grid": {
+      "type": "collection_grid_two",
+      "settings": {
+        "products_per_page": 40,
+        "columns_desktop": 4
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "product-grid"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "parent": "header-group.json",
+  "context": {
+    "market": "14d367a4-0208-41a7-837e-b98350c315a1"
+  },
+  "sections": {
+    "announcement-bar": {
+      "settings": {
+        "auto_rotate": true
+      },
+      "blocks": {},
+      "block_order": [
+        "announcement-bar-0"
+      ]
+    },
+    "header": {
+      "settings": {},
+      "blocks": {
+        "text_EDWL6n": {
+          "settings": {
+            "title_collection_page_settings": "WINTER-FALL24"
+          }
+        }
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "header"
+  ]
+}

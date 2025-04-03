@@ -1,0 +1,115 @@
+<section class="announcement_bar-la" style="background-color: {{ section.settings.bg_color_aannouncement }};">
+  <div class="announcement_bar-la_wrapper">
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'announcement' %}
+          <div class="slider-announcement_bar-la">
+            <a href="{{ block.settings.link-la }}" aria-label="{{ block.settings.text-la }}">
+              {{ block.settings.text-la |  upcase}}
+            </a>
+          </div>
+        {% else %}
+      {% endcase %}
+    {% endfor %}
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const announcements = document.querySelectorAll('.announcement_bar-la_wrapper div');
+    
+    if (announcements.length === 0) {
+      return; 
+    }
+    
+    let currentIndex = 0;
+
+    function showAnnouncement(index) {
+      announcements.forEach((el, i) => {
+        if (i === index) {
+          el.classList.add('active'); 
+        } else {
+          el.classList.remove('active'); 
+        }
+      });
+    }
+
+    function rotateAnnouncements() {
+      currentIndex = (currentIndex + 1) % announcements.length;
+      showAnnouncement(currentIndex);
+    }
+
+    const autoRotate = {{ section.settings.auto_rotate | json }};
+    const changeSlidesSpeed = {{ section.settings.change_slides_speed | json }} * 1000; 
+
+    if (autoRotate && announcements.length > 1) {
+      showAnnouncement(currentIndex);
+      setInterval(rotateAnnouncements, changeSlidesSpeed);
+    } else {
+      showAnnouncement(currentIndex); 
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "t:sections.announcement-bar.name",
+  "max_blocks": 12,
+  "class": "announcement-bar-section",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "auto_rotate",
+      "label": "t:sections.announcement-bar.settings.auto_rotate.label",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "bg_color_aannouncement",
+      "label": "Background"
+    },
+    {
+      "type": "range",
+      "id": "change_slides_speed",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s", 
+      "label": "t:sections.announcement-bar.settings.change_slides_speed.label",
+      "default": 5
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "t:sections.announcement-bar.blocks.announcement.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text-la",
+          "default": "Welcome to our store",
+          "label": "t:sections.announcement-bar.blocks.announcement.settings.text.label"
+        },
+        {
+          "type": "url",
+          "id": "link-la",
+          "label": "t:sections.announcement-bar.blocks.announcement.settings.link.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.announcement-bar.presets.name",
+      "blocks": [
+        {
+          "type": "announcement"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

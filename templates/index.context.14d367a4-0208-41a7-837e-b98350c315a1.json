@@ -1,0 +1,267 @@
+{
+  "parent": "index.json",
+  "context": {
+    "market": "14d367a4-0208-41a7-837e-b98350c315a1"
+  },
+  "sections": {
+    "slider_standart_la_gmVdH": {
+      "type": "slider-standart-la",
+      "disabled": true,
+      "settings": {
+        "title_in_slider_section": "This is Standart Slider photo2",
+        "product_list": [
+          "crocodile-leather-jacket-2",
+          "black-jacket-with-crocodile-leather",
+          "black-jacet",
+          "blue-jacket",
+          "blue-jacket-3",
+          "burgundy-jacket"
+        ],
+        "collection_list": [],
+        "checkbox_center": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      },
+      "blocks": {},
+      "block_order": []
+    },
+    "slider_standart_la_8CRDq": {
+      "type": "slider-standart-la",
+      "disabled": true,
+      "settings": {
+        "title_in_slider_section": "This is Standart Slider center off photo2",
+        "product_list": [
+          "crocodile-leather-jacket-2",
+          "black-jacket-with-crocodile-leather",
+          "black-jacet",
+          "blue-jacket",
+          "blue-jacket-3",
+          "burgundy-jacket"
+        ],
+        "collection_list": [],
+        "checkbox_center": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      },
+      "blocks": {},
+      "block_order": []
+    },
+    "slider_standart_la_em9qM": {
+      "type": "slider-standart-la",
+      "disabled": true,
+      "settings": {
+        "title_in_slider_section": "slider collection",
+        "product_list": [],
+        "collection_list": [
+          "bags-and-purses",
+          "men-belts",
+          "exotic-accessories",
+          "men-jackets",
+          "men-wallets"
+        ],
+        "checkbox_center": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      },
+      "blocks": {},
+      "block_order": []
+    },
+    "slider_standart_la_UUxYk": {
+      "type": "slider-standart-la",
+      "disabled": false,
+      "settings": {
+        "title_in_slider_section": "Let your every step be surrounded by rich colors",
+        "product_list": [
+          "brown-brogues",
+          "classic-brown-lace-ups-1",
+          "capricious-1",
+          "copy-of-classy-derby-shoes",
+          "copy-of-classic-shoes",
+          "dark-green-sneakers-with-white-laces",
+          "dark-brown-monks-2",
+          "minimalist-1"
+        ],
+        "collection_list": [],
+        "checkbox_center": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      },
+      "blocks": {},
+      "block_order": []
+    },
+    "slider_standart_la_ekx8j": {
+      "type": "slider-standart-la",
+      "disabled": false,
+      "settings": {
+        "title_in_slider_section": "Timeless and bold with Armos",
+        "product_list": [
+          "brown-leather-sneakers-2",
+          "classy-brown-shoes",
+          "copy-of-classy-derby-shoes",
+          "dark-green-sneakers-with-white-laces",
+          "fast-and-furious-1",
+          "capricious-1",
+          "dark-brown-monks-2",
+          "loafers-with-crocodile-print"
+        ],
+        "collection_list": [],
+        "checkbox_center": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      },
+      "blocks": {},
+      "block_order": []
+    },
+    "image_banner_slider_la_GRpgkq": {
+      "settings": {
+        "padding_top": 0,
+        "padding_bottom": 100
+      },
+      "blocks": {
+        "image_picker_VPcjmq": {
+          "settings": {
+            "slder_info_impact_url": "shopify:\/\/collections\/shoes-for-men"
+          }
+        },
+        "image_picker_Dp6XYQ": {
+          "settings": {
+            "slder_info_impact_url": "shopify:\/\/collections\/shoes-for-men"
+          }
+        }
+      }
+    },
+    "slider_in_fix_la_nhtdbX": {
+      "settings": {
+        "product_list": [
+          "blue-woven-monks-1",
+          "dark-gray-monks-1",
+          "dark-brown-monks-2",
+          "black-energy-1",
+          "brown-leather-sneakers-2",
+          "copy-of-crocodile-print-suede-sneakers",
+          "brown-brogues",
+          "dark-green-sneakers-with-white-laces",
+          "leather-sneakers-with-blue-chess-pattern",
+          "fast-and-furious-1"
+        ]
+      },
+      "blocks": {}
+    },
+    "image_in_collection_la_XmV9QD": {
+      "settings": {},
+      "blocks": {
+        "collection_kXnfVQ": {
+          "settings": {
+            "text_url_collection": "Shop Men's"
+          }
+        },
+        "collection_9XiLFV": {
+          "settings": {
+            "collection-image-la": "shopify:\/\/shop_images\/collection3.png",
+            "url_collection_link": "shopify:\/\/collections\/men-accessories",
+            "text_url_collection": "Accessories"
+          }
+        },
+        "collection_qbdBQj": {
+          "settings": {
+            "collection-image-la": "shopify:\/\/shop_images\/collection4.png",
+            "url_collection_link": "shopify:\/\/collections\/for-women",
+            "text_url_collection": "Shop Women's"
+          }
+        }
+      },
+      "block_order": [
+        "collection_kXnfVQ",
+        "collection_9XiLFV",
+        "collection_qbdBQj"
+      ]
+    },
+    "slider_centerline_la_mDqNQh": {
+      "disabled": true,
+      "settings": {
+        "list_product-la": [
+          "whiskey-shoes",
+          "fast-and-furious-1",
+          "brown-leather-sneakers-2",
+          "woven-loafers-2",
+          "blue-woven-monks-1",
+          "brown-winter-boots-1",
+          "copy-of-classy-derby-shoes",
+          "dark-gray-monks-1",
+          "lacquered-lace-ups-1",
+          "suede-and-leather-sneakers",
+          "chelsea-boots-with-a-touch-of-green-1"
+        ],
+        "padding_top": 60
+      },
+      "blocks": {}
+    },
+    "slider_standart_la_3Tcw8j": {
+      "settings": {
+        "checkbox_center": true
+      },
+      "blocks": {}
+    },
+    "history_section_la_zeYAQT": {
+      "settings": {
+        "reichtext_descripstion": "<p>Explore Armos, where over three decades of expertise in shoemaking and leather craftsmanship converge. Our shoes and leather accessories are meticulously handcrafted with the finest Italian leather, reflecting our commitment to quality and tradition. Each piece embodies the dedication and skill of our artisans, ensuring timeless elegance and unparalleled comfort. Discover the Armos difference—experience the luxury of superior craftsmanship.<\/p>"
+      },
+      "blocks": {
+        "history_image_qCG8wt": {
+          "settings": {
+            "image_picker-la": "shopify:\/\/shop_images\/4A4A7065.png"
+          }
+        },
+        "history_image_tHA4kt": {
+          "settings": {
+            "image_picker-la": "shopify:\/\/shop_images\/ARjM_9401_3.png"
+          }
+        },
+        "history_image_RgewWy": {
+          "settings": {
+            "image_picker-la": "shopify:\/\/shop_images\/Common_materials__Leather___Types_of_shoes_1.png"
+          }
+        },
+        "history_image_CHpPhP": {
+          "settings": {
+            "image_picker-la": "shopify:\/\/shop_images\/5_1487b24e-977f-470a-9496-2e4c6578f7d3.png"
+          }
+        },
+        "history_image_ydbFXD": {
+          "settings": {
+            "image_picker-la": "shopify:\/\/shop_images\/Cgggapture_1_1.png"
+          }
+        }
+      },
+      "block_order": [
+        "history_image_qCG8wt",
+        "history_image_tHA4kt",
+        "history_image_RgewWy",
+        "history_image_CHpPhP",
+        "history_image_ydbFXD"
+      ]
+    },
+    "store_section_dBYDiy": {
+      "settings": {
+        "richtext_description": "<p>\"Armos\" offers its customers high-quality Italian materials handcrafted shoes, jackets, bags and accessories, providing high quality and comfort.<\/p>",
+        "url_store_button": "shopify:\/\/collections\/shoes-for-men",
+        "image_store": "shopify:\/\/shop_images\/A4A7604.jpg"
+      },
+      "blocks": {}
+    }
+  },
+  "order": [
+    "image_banner_slider_la_GRpgkq",
+    "slider_in_fix_la_nhtdbX",
+    "image_in_collection_la_XmV9QD",
+    "slider_centerline_la_mDqNQh",
+    "slider_standart_la_3Tcw8j",
+    "slider_standart_la_gmVdH",
+    "slider_standart_la_8CRDq",
+    "slider_standart_la_em9qM",
+    "slider_standart_la_UUxYk",
+    "history_section_la_zeYAQT",
+    "slider_standart_la_ekx8j",
+    "store_section_dBYDiy"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "parent": "product.json",
+  "context": {
+    "market": "14d367a4-0208-41a7-837e-b98350c315a1"
+  },
+  "sections": {
+    "main": {
+      "settings": {
+        "gallery_layout": "columns",
+        "mobile_thumbnails": "hide",
+        "padding_top": 60
+      }
+    }
+  }
+}

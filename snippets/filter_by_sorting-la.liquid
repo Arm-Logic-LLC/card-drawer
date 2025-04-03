@@ -1,0 +1,203 @@
+{{ 'filter-la.css' | asset_url | stylesheet_tag }}
+<script></script>
+<div class="filter_container-la">
+  <div class="selected_options_in_sorting-la">
+    <p class="title_filter-la">FILTER & SORT</p>
+    <div class="filter-sorty-position">
+      <div class="filter-sorty-position-wrapper-la">
+        <div class="filter_all_continer-la">
+          <div class="header-sort-by-la"> 
+            <p>FILTER & SORT</p>
+            <span class="close-filter-overlay-la">
+              {% render 'icon_x' %}
+            </span>
+          </div>
+          <form class="filter_sorting_by">
+            <div class="sort-by-la">
+              <div class="facet-filters__field">
+                <div class="">
+                  {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+                  <div class="sort_by_container-la">
+                    <div class="title-continer-in-selected-sort-by all-class-item">
+                      <p class="title-selected-sort-by">SORT BY</p>
+                      <span class="filter-close-plus-la">
+                        {% render 'icon-plus-la' %}
+                      </span>
+                      <span class="filter-close-minus-la">
+                        {% render 'icon-minus-la' %}
+                      </span>
+                    </div>
+                    <div class="select-sort-by">
+                      {%- for option in collection.sort_options -%}
+                        {%- if forloop.index != 0 and forloop.index != 2 and forloop.index != 3 and forloop.index != 4 and forloop.index != 7 and forloop.index != 8 -%}
+                        <div class="sort-option-container">
+                          <input
+                            type="checkbox"
+                            class="sort-checkbox֊la"
+                            id="sort-option-{{ forloop.index }}"
+                            data-value="{{ option.value | escape }}"
+                            {% if option.value == sort_by %}
+                              checked
+                            {% endif %}
+                          >
+                          <label
+                            for="sort-option-{{ forloop.index }}"
+                            class="sort-option"
+                            data-value="{{ option.value | escape }}"
+                          >
+                            {{ option.name | escape }}
+                          </label>
+                        </div>
+                          {% endif %}
+                      {%- endfor -%}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <noscript>
+                <button type="submit" class="facets__button-no-js button button--secondary">
+                  {{ 'products.facets.sort_button' | t }}
+                </button>
+              </noscript>
+            </div>
+            {%- for filter in collection.filters -%}
+              <details class="filter-class-{{ forloop.index0 }} details-filter-continer">
+                <summary class="summary_select-la  all-class-item ">
+                  <div class="title-summary-la">
+                    <span>{{ filter.label }}</span>
+                  </div>
+                  <div>
+                    <span class="filter-close-plus-la">
+                      {% render 'icon-plus-la' %}
+                    </span>
+                    <span class="filter-close-minus-la">
+                      {% render 'icon-minus-la' %}
+                    </span>
+                  </div>
+                </summary>
+
+                <div>
+
+                  {%- case filter.type -%}
+                    {%- when 'boolean' -%}
+                      <ul>
+                        <li>
+                          <label for="Filter-{{ filter.param_name }}-{{ filter.true_value.value }}">
+                            <input
+                              type="checkbox"
+                              name="{{ filter.param_name }}"
+                              value="{{ filter.true_value.value }}"
+                              id="Filter-{{ filter.param_name }}"
+                              {% if filter.true_value.active -%}
+                                checked
+                              {%- endif %}
+                              {% if filter.true_value.count == 0 and filter.true_value.active == false -%}
+                                disabled
+                              {%- endif -%}
+                            >
+                            {{- filter.true_value.label -}}
+                          </label>
+                        </li>
+                        <li>
+                          <label for="Filter-{{ filter.param_name }}-{{ filter.false_value.value }}">
+                            <input
+                              type="checkbox"
+                              name="{{ filter.param_name }}"
+                              value="{{ filter.false_value.value }}"
+                              id="Filter-{{ filter.param_name }}"
+                              {% if filter.false_value.active -%}
+                                checked
+                              {%- endif %}
+                              {% if filter.false_value.count == 0 and filter.false_value.active == false -%}
+                                disabled
+                              {%- endif %}
+                            >
+                            {{- filter.false_value.label -}}
+                          </label>
+                        </li>
+                      </ul>
+                      {%- when 'list' -%}
+                        <ul class="list_select-filter-la list-all-{{ forloop.index0 }}">
+                          {%- for filter_value in filter.values -%}
+                            <li>
+                              <label for="Filter-{{ filter.param_name }}-{{ forloop.index }}" class="label-info-{{ forloop.index0 }} {% if filter_value.count == 0 and filter_value.active == false %}unavailable-la{% else %}available-la{% endif %} label-info-inpute-la" >
+                                <input
+                                  type="checkbox"
+                                  name="{{ filter_value.param_name }}"
+                                  value="{{ filter_value.value }}"
+                                  id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                                  class=" filter-option-inpute-la" 
+                                  {% if filter_value.active %}
+                                    checked
+                                  {% endif %}
+                                  {% if filter_value.count == 0 and filter_value.active == false %}
+                                    disabled
+                                  {% endif %}
+                                >
+                                <span>
+                                  {%- case filter_value.display.type -%}
+                                    {%- when 'colors' -%}
+                                      {% liquid
+                                        assign size_limit = filter_value.display.value.size | at_most: 4
+                                        assign rotation = '0deg'
+                                        if size_limit == 2
+                                          assign rotation = '45deg'
+                                        endif
+                      
+                                        assign angle_increment = 360 | divided_by: size_limit
+                                        assign angle = 0
+                                      %}
+                                      {%- capture conic_gradient -%}
+                                        {%- for color in filter_value.display.value limit: size_limit -%}
+                                        {{ color }} {{ angle }}deg{%- assign angle = angle | plus: angle_increment %} {{ angle }}deg{%- unless forloop.last %}, {%- endunless -%}
+                                        {%- endfor -%}
+                                      {%- endcapture -%}
+                                      <span
+                                        style="
+                                          width: 25px;
+                                          height: 25px;
+                                          border-radius: 50%;
+                                          display: flex;
+                                          justify-content: center;
+                                          align-items: center;
+                                          background: conic-gradient({{ conic_gradient }}); transform: rotateZ({{ rotation }});
+                                        "
+                                      ></span>
+                                    {%- when 'image' -%}
+                                      {{
+                                        filter_value.display.value
+                                        | image_url: width: 25
+                                        | image_tag: alt: filter_value.display.value.alt
+                                      }}
+                                    {%- else -%}
+                                      <span class="visual-display__child"></span>
+                                  {%- endcase -%}
+                                </span>
+                                {{ filter_value.label }}
+                              </label>
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+                      
+                  {%- endcase -%}
+                </div>
+              </details>
+            {%- endfor -%}
+
+            <div class="delete_all-filter-selected-la">
+              <a class="all-delete-url-la" href="{{ collection.url }}?sort_by={{ collection.sort_by }}">DELETE</a>
+              <button type="submit" class="show-results-btn-la"  data-products-count="{{ collection.products_count }}">
+                SHOW
+                <span id="filtered-results-count">0</span>
+                RESULTS
+              </button>
+            </div>
+
+            <div id="loading" style="display: none;">Loading...</div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="modal-backdrop-la"></div>
+  </div>
+</div>

@@ -1,0 +1,210 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product-la",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "buy_buttons_MgGG6p": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false
+          }
+        },
+        "description_JhRhfj": {
+          "type": "description",
+          "disabled": true,
+          "settings": {}
+        },
+        "popup_L3qa4a": {
+          "type": "popup",
+          "settings": {
+            "text": "Pop-up link text",
+            "page": ""
+          }
+        },
+        "data_3KirdA": {
+          "type": "data",
+          "settings": {}
+        },
+        "share_DYkiyK": {
+          "type": "share",
+          "settings": {}
+        },
+        "detalis_dTFFek": {
+          "type": "detalis",
+          "settings": {
+            "title_detalis": "Product Details",
+            "title_product_viewed_la": "Product Details"
+          }
+        },
+        "collapsible_tab_EpXW6n": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Free delivery & returns",
+            "title_collapsible": "Free delivery & returns",
+            "content": "<p><strong>Free<\/strong> <strong>express<\/strong> delivery (DHL,Fedex): 2-9 business days <\/p><p><\/p><p>Shop with confidence with free returns within 30 days from delivery.<\/p><p>See full <a href=\"https:\/\/www.armosshoes.com\/pages\/delivery-returns-refund-policy\" title=\"Delivery\">delivery <\/a>and <a href=\"https:\/\/www.armosshoes.com\/pages\/return-and-exchange-policy\" title=\"Returns\">returns <\/a>information.<\/p>",
+            "text-collapsible": "",
+            "page": ""
+          }
+        },
+        "collapsible_tab_hUyHTP": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "2-Year Warranty",
+            "title_collapsible": "2-Year Warranty",
+            "content": "<p>Exceptional craftsmanship is integral to Armos brand. Our collection is covered by a full product warranty for <strong>2 years <\/strong>from the date of purchase if your item is subject to a production fault.<br\/><br\/>If your product was purchased from our website simply contact our Customers Service Team. We will be able to resolve your query in the most effective way possible.<br\/><br\/>Kindly be aware that our warranty cannot be extended to cover products altered through accidental damage or by a third-party repair company.<\/p>",
+            "text-collapsible": "",
+            "page": ""
+          }
+        },
+        "collapsible_tab_7XG7KE": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Contact us",
+            "title_collapsible": "Contact us",
+            "content": "<p><\/p><p><strong>Call Us<\/strong><br\/>(+1) 7473003371 <br\/>Monday to Sunday 24\/7<\/p><p><br\/><strong>Message Us<\/strong><br\/>Get in touch with our Customer Services team<br\/>Email: <strong>info@armosshoes.com<\/strong><br\/><br\/>Our <strong>Live Chat<\/strong> is available<\/p><p> Monday-Friday<br\/>09:00am-06:00pm (EST)<\/p><p><\/p>",
+            "text-collapsible": "",
+            "page": ""
+          }
+        },
+        "popup_JVbk4p": {
+          "type": "popup",
+          "settings": {
+            "text": "Size Guide",
+            "page": "size-chart"
+          }
+        },
+        "slider_also_like_YDnQF3": {
+          "type": "slider_also_like",
+          "settings": {
+            "one_slider_title": "Style with",
+            "two_slider_title": "You may also like"
+          }
+        },
+        "variant_picker_WELXDw": {
+          "type": "variant_picker",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "buy_buttons_MgGG6p",
+        "description_JhRhfj",
+        "popup_L3qa4a",
+        "data_3KirdA",
+        "share_DYkiyK",
+        "detalis_dTFFek",
+        "collapsible_tab_EpXW6n",
+        "collapsible_tab_hUyHTP",
+        "collapsible_tab_7XG7KE",
+        "popup_JVbk4p",
+        "slider_also_like_YDnQF3",
+        "variant_picker_WELXDw"
+      ],
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "why_armos_D7JMbi": {
+      "type": "why-armos",
+      "blocks": {
+        "text_block_pPatkD": {
+          "type": "text_block",
+          "settings": {
+            "text": "730 Days of warranty",
+            "icon": "shopping",
+            "text_url": "Shop all",
+            "url": "shopify:\/\/collections\/shoes-for-men",
+            "textarea_block": "Our footwear is backed by a warranty for lasting durability and comfort."
+          }
+        },
+        "text_block_bUKUt4": {
+          "type": "text_block",
+          "settings": {
+            "text": "Premium quality",
+            "icon": "grade",
+            "text_url": "Blogs",
+            "url": "shopify:\/\/blogs\/editorial",
+            "textarea_block": "Every pair reflects the timeless quality and precision."
+          }
+        },
+        "text_block_LhPdb6": {
+          "type": "text_block",
+          "settings": {
+            "text": "Personal service",
+            "icon": "return",
+            "text_url": "Contact us",
+            "url": "shopify:\/\/pages\/contact",
+            "textarea_block": "We are available for you from Monday to Sunday 24\/7"
+          }
+        }
+      },
+      "block_order": [
+        "text_block_pPatkD",
+        "text_block_bUKUt4",
+        "text_block_LhPdb6"
+      ],
+      "settings": {
+        "title_section": "Why Armos?",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "recently_viewed_x8bn3r": {
+      "type": "recently-viewed",
+      "settings": {
+        "recently_title_id": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "conntact_us_la_DEjfzt": {
+      "type": "conntact-us-la",
+      "blocks": {
+        "email_block_rFgnay": {
+          "type": "email_block",
+          "settings": {
+            "text_email": "Email",
+            "textarea_block_email": "Get in touch by email",
+            "icon_email": "email",
+            "text_url_email": "info@armosshoes.com"
+          }
+        },
+        "phone_block_efQLTx": {
+          "type": "phone_block",
+          "settings": {
+            "text_phone": "Order by phone",
+            "textarea_block_phone": "Working hours: 11:00-20:00",
+            "text_mobile_phone": "Call us",
+            "icon_phone": "call",
+            "text_url_phone": "+17473003371"
+          }
+        }
+      },
+      "block_order": [
+        "email_block_rFgnay",
+        "phone_block_efQLTx"
+      ],
+      "settings": {
+        "checkbox": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main",
+    "why_armos_D7JMbi",
+    "recently_viewed_x8bn3r",
+    "conntact_us_la_DEjfzt"
+  ]
+}

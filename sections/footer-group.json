@@ -1,0 +1,55 @@
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "brand_information_Vczz67": {
+          "type": "brand_information",
+          "settings": {
+            "title_social_icons-la": "Find us",
+            "title_social_icons_mobile-la": "Follow us on",
+            "paragraf_email": "Get exclusive news, promotions and access to private events!",
+            "show_social-la": true
+          }
+        },
+        "list_help_la_NiQa8t": {
+          "type": "list_help-la",
+          "settings": {
+            "link_list_help_title-la": "Menu",
+            "link_list_help-la": "footer-right-menu"
+          }
+        },
+        "list_support_la_YVMJwq": {
+          "type": "list_support-la",
+          "settings": {
+            "link_list_support_title-la": "Quick links",
+            "link_list_support-la": "footer"
+          }
+        },
+        "list_men_la_ggyz7e": {
+          "type": "list_men-la",
+          "settings": {
+            "link_list_men_title-la": "Contact us",
+            "link_list_men-la": "menu-drawer"
+          }
+        }
+      },
+      "block_order": [
+        "brand_information_Vczz67",
+        "list_help_la_NiQa8t",
+        "list_support_la_YVMJwq",
+        "list_men_la_ggyz7e"
+      ],
+      "settings": {
+        "payment_enable": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

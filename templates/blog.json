@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-blog-la",
+      "settings": {
+        "blog_logo-la": "shopify:\/\/shop_images\/our-stories.webp",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

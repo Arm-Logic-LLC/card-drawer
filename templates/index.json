@@ -1,0 +1,253 @@
+{
+  "sections": {
+    "image_banner_slider_la_GRpgkq": {
+      "type": "image-banner-slider-la",
+      "blocks": {
+        "image_picker_VPcjmq": {
+          "type": "image_picker",
+          "settings": {
+            "image_picker_block": "shopify:\/\/shop_images\/banner_2_d5a6d04b-9d81-4a5d-890d-1d3c1c0a8d47.png",
+            "image_picker_block_mobile": "shopify:\/\/shop_images\/banner_2_mob-3_46b66108-f057-4c46-bb87-ba473651a249.png",
+            "slider_impact-la": "",
+            "slder_info_impact_url": "shopify:\/\/collections\/shoes-for-men",
+            "text_url-la": "",
+            "collection_impact_color": "#ffffff",
+            "maximum_impact_link_bgcolor": "#121212",
+            "maximum_impact_link_color": "#ffffff"
+          }
+        },
+        "image_picker_Dp6XYQ": {
+          "type": "image_picker",
+          "disabled": true,
+          "settings": {
+            "image_picker_block": "shopify:\/\/shop_images\/banner_1.png",
+            "image_picker_block_mobile": "shopify:\/\/shop_images\/banner_2_mob-2_fb2a004a-653b-41c1-a9db-f94188a88e47.png",
+            "slider_impact-la": "",
+            "slder_info_impact_url": "shopify:\/\/collections\/shoes-for-men",
+            "text_url-la": "",
+            "collection_impact_color": "#ffffff",
+            "maximum_impact_link_bgcolor": "#121212",
+            "maximum_impact_link_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "image_picker_VPcjmq",
+        "image_picker_Dp6XYQ"
+      ],
+      "settings": {
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "slider_in_fix_la_nhtdbX": {
+      "type": "slider-in-fix-la",
+      "settings": {
+        "info_day_name": "Our products come with",
+        "number_slider": "730",
+        "description": "<p>days of warranty<\/p>",
+        "button_url": "shopify:\/\/collections\/shoes-for-men",
+        "text_button_url": "Shop all",
+        "product_list": [
+          "blue-woven-monks-1",
+          "dark-gray-monks-1",
+          "dark-brown-monks-2",
+          "copy-of-crocodile-print-suede-sneakers",
+          "dark-green-sneakers-with-white-laces",
+          "black-energy-1"
+        ],
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_in_collection_la_XmV9QD": {
+      "type": "image-in-collection-la",
+      "blocks": {
+        "collection_kXnfVQ": {
+          "type": "collection",
+          "settings": {
+            "collection-image-la": "shopify:\/\/shop_images\/collection1.png",
+            "url_collection_link": "shopify:\/\/collections\/for-men",
+            "text_url_collection": "Shop Men's"
+          }
+        },
+        "collection_qbdBQj": {
+          "type": "collection",
+          "settings": {
+            "collection-image-la": "shopify:\/\/shop_images\/collection3.png",
+            "url_collection_link": "shopify:\/\/collections\/exotic-accessories",
+            "text_url_collection": "Accessories"
+          }
+        },
+        "collection_9XiLFV": {
+          "type": "collection",
+          "settings": {
+            "collection-image-la": "shopify:\/\/shop_images\/collection4.png",
+            "url_collection_link": "shopify:\/\/collections\/for-women",
+            "text_url_collection": "Shop Women's"
+          }
+        }
+      },
+      "block_order": [
+        "collection_kXnfVQ",
+        "collection_qbdBQj",
+        "collection_9XiLFV"
+      ],
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "slider_standart_la_3Tcw8j": {
+      "type": "slider-standart-la",
+      "disabled": true,
+      "settings": {
+        "title_in_slider_section": "Find exclusive styles and shop new releases",
+        "product_list": [],
+        "collection_list": [
+          "men-boots",
+          "men-lace-up-shoes",
+          "loafers-monks",
+          "men-sneakers",
+          "men-moccasins",
+          "sandals"
+        ],
+        "checkbox_center": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "slider_standart_la_8EzNHw": {
+      "type": "slider-standart-la",
+      "settings": {
+        "title_in_slider_section": "Find exclusive styles and shop new releases",
+        "product_list": [
+          "blue-woven-monks-1",
+          "dark-gray-monks-1",
+          "copy-of-classic-shoes",
+          "minimalist-1",
+          "patinated-penny-loafers-2",
+          "lacquered-lace-ups-1"
+        ],
+        "collection_list": [],
+        "checkbox_center": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "history_section_la_zeYAQT": {
+      "type": "history-section-la",
+      "blocks": {
+        "history_image_qCG8wt": {
+          "type": "history_image",
+          "settings": {
+            "image_picker-la": "shopify:\/\/shop_images\/4A4A7065.png"
+          }
+        },
+        "history_image_CHpPhP": {
+          "type": "history_image",
+          "settings": {
+            "image_picker-la": "shopify:\/\/shop_images\/ARjM_9401_3.png"
+          }
+        },
+        "history_image_tHA4kt": {
+          "type": "history_image",
+          "settings": {
+            "image_picker-la": "shopify:\/\/shop_images\/4_7eaf5ec2-4481-4734-818e-6c4ff0c9fe5e.png"
+          }
+        },
+        "history_image_RgewWy": {
+          "type": "history_image",
+          "settings": {
+            "image_picker-la": "shopify:\/\/shop_images\/5.png"
+          }
+        },
+        "history_image_ydbFXD": {
+          "type": "history_image",
+          "settings": {
+            "image_picker-la": "shopify:\/\/shop_images\/Cgggapture_1_1.png"
+          }
+        }
+      },
+      "block_order": [
+        "history_image_qCG8wt",
+        "history_image_CHpPhP",
+        "history_image_tHA4kt",
+        "history_image_RgewWy",
+        "history_image_ydbFXD"
+      ],
+      "custom_css": [],
+      "settings": {
+        "history_title": "INSIDE ARMOS",
+        "reichtext_descripstion": "<p>Explore Armos, where over three decades of expertise in shoemaking and leather craftsmanship converge. Our shoes and leather accessories are meticulously handcrafted with the finest Italian leather, reflecting our commitment to quality and tradition. Each piece embodies the dedication and skill of our artisans, ensuring timeless elegance and unparalleled comfort. Discover the Armos difference—experience the luxury of superior craftsmanship.<\/p>",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "slider_centerline_la_mDqNQh": {
+      "type": "slider-centerline-la",
+      "disabled": true,
+      "settings": {
+        "list_product-la": [
+          "blue-woven-monks-1",
+          "brown-leather-sneakers-2",
+          "brown-winter-boots-1",
+          "copy-of-classy-derby-shoes",
+          "dark-gray-monks-1",
+          "fast-and-furious-1",
+          "lacquered-lace-ups-1",
+          "painted-brown-sneakers-1",
+          "suede-and-leather-sneakers",
+          "woven-loafers-2",
+          "whiskey-shoes",
+          "chelsea-boots-with-a-touch-of-green-1"
+        ],
+        "padding_top": 8,
+        "padding_bottom": 36
+      }
+    },
+    "slider_standart_la_pjUXyJ": {
+      "type": "slider-standart-la",
+      "settings": {
+        "title_in_slider_section": "Timeless and bold with Armos",
+        "product_list": [
+          "classic-brown-lace-ups-1",
+          "whiskey-shoes",
+          "capricious-1",
+          "loafers-with-crocodile-print",
+          "copy-of-classy-derby-shoes",
+          "classy-brown-shoes",
+          "suede-and-leather-sneakers"
+        ],
+        "collection_list": [],
+        "checkbox_center": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "store_section_dBYDiy": {
+      "type": "store-section",
+      "settings": {
+        "title_store": "VISIT OUR STORE",
+        "richtext_description": "<p>\"Armos\" offers its customers high-quality Italian materials handcrafted shoes, jackets, bags and accessories, providing high quality and comfort.<\/p>",
+        "url_store_button": "shopify:\/\/collections\/shoes-for-men",
+        "url_text_bottom": "Shop all",
+        "chechbox_reverse": false,
+        "image_store": "shopify:\/\/shop_images\/A4A7604.jpg",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "image_banner_slider_la_GRpgkq",
+    "slider_in_fix_la_nhtdbX",
+    "image_in_collection_la_XmV9QD",
+    "slider_standart_la_3Tcw8j",
+    "slider_standart_la_8EzNHw",
+    "history_section_la_zeYAQT",
+    "slider_centerline_la_mDqNQh",
+    "slider_standart_la_pjUXyJ",
+    "store_section_dBYDiy"
+  ]
+}

@@ -1,0 +1,64 @@
+{{ 'product-la.css' | asset_url | stylesheet_tag }}
+
+  <ul class="continer-media-product-la">
+    {%- for media in product.media -%}
+      <li class="media-product-items-la">
+        {%- liquid
+          case media.media_type
+          when 'external_video'
+            assign video_class = 'js-' | append: media.host
+            if media.host == 'youtube'
+              echo media | external_video_url: autoplay: true, loop: loop, playlist: media.external_id | external_video_tag: class: video_class, loading: "lazy"
+            else
+              echo media | external_video_url: autoplay: true, loop: loop | external_video_tag: class: video_class, loading: "lazy"
+            endif
+          when 'video'
+            echo media | media_tag: image_size: "2048x", autoplay: true, loop: loop, controls: true, preload: "none"
+          when 'model'
+            echo media | media_tag: image_size: "2048x", toggleable: true
+          when 'image'
+            echo media | image_url: width: 1946 | image_tag: loading: "lazy", sizes: '(max-width: 600px) 100vw, 600px', widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
+          endcase
+        -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+  <div class="swiper mobile-media-product-la">
+    <div class="swiper-wrapper mobile-media-product-wrapper-la">
+      {%- for media in product.media -%}
+        <div class="mobile-media-product-items-la swiper-slide" data-media-type="{{ media.media_type }}">
+          {%- liquid
+            case media.media_type
+            when 'external_video'
+              assign video_class = 'js-' | append: media.host
+              if media.host == 'youtube'
+                echo media | external_video_url: autoplay: true, loop: loop, playlist: media.external_id | external_video_tag: class: video_class, loading: "lazy"
+              else
+                echo media | external_video_url: autoplay: true, loop: loop | external_video_tag: class: video_class, loading: "lazy"
+              endif
+              
+            when 'video'
+              echo media | media_tag: image_size: "2048x", autoplay: true, loop: loop, controls: true, preload: "none"
+              
+            when 'model'
+              echo media | media_tag: image_size: "2048x", toggleable: true
+             
+            when 'image'
+              echo media | image_url: width: 1946 | image_tag: loading: "lazy", sizes: '(max-width: 600px) 100vw, 800px', widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
+             
+            endcase
+          -%}
+          <!-- {%- if is_video == false -%}
+            <div class="icon-video-play-parent-la">
+              {% render 'icon-video-play' %}
+            </div>
+          {%- endif -%} -->
+      
+        </div>
+      {%- endfor -%}
+      
+    </div>
+    <div class="swiper-button-next mobile-items-product-button-next"></div>
+    <div class="swiper-button-prev mobile-items-product-button-prev"></div>
+    <div class="swiper-pagination pagination-mobile-media-product-items-la"></div>
+  </div>

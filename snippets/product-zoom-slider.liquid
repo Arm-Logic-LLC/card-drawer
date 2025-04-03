@@ -1,0 +1,27 @@
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<div class="swiper product-zoom-la">
+  <button class="close_zoom_button-la">
+    {% render 'icon-close-la' %}
+  </button>
+    <div class="swiper-wrapper product-wrapper-zoom-la">
+        {%- for media in product.media -%}
+          {% if media.media_type == 'image' %}
+            <div class="product-zoom-items-la swiper-slide"> 
+              {% render 'icon-touch-zoom-la' %}
+              <div class="image_product_unset" >
+                {%- liquid
+                  case media.media_type
+                  when 'image'
+                    echo media | image_url: width: 1946 | image_tag: loading: "lazy", sizes: '(max-width: 800px) 100vw, 2000px', widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
+                  endcase
+                -%}
+              </div>
+            </div>
+          {% endif %}
+        {%- endfor -%}
+      </div>
+      <div class="swiper-button-next items-product-button-next"></div>
+      <div class="swiper-button-prev items-product-button-prev"></div>
+     
+</div> 
