@@ -9,10 +9,12 @@ const aTags = document.querySelectorAll('a');
             localStorage.removeItem('lastCollectionURL');
             localStorage.removeItem('collectionMetaTitle');
           }
-          window.location.href = el.href; 
+          window.location.href = el.href;
         });
     })
-
+    cartDrawer && cartIcon.addEventListener("click", () => {
+      cartDrawer.classList.add("cart-drawer-active-la");
+    });
 // function updateCartCount() {
 //   const cartCountBubble = document.querySelector(".cart-count-bubble-la");
 //   const cartCountHeader = document.querySelector(".cart-count-header-la");
